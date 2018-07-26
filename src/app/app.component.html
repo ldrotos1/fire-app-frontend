@@ -1,8 +1,32 @@
 <div>
 	<mat-toolbar class="mat-elevation-z6" color="primary">
-		<span>{{ title }}</span>
+		<button mat-icon-button [matMenuTriggerFor]="mainMenu">
+			<mat-icon aria-label="Menu">menu</mat-icon>
+		</button>
+		<mat-menu #mainMenu="matMenu" [overlapTrigger]="false">
+			<button mat-menu-item>
+    			<mat-icon>info</mat-icon>
+    			<span>Guide</span>
+  			</button>
+  			<button mat-menu-item>
+  				<mat-icon>location_city</mat-icon>
+    			<span>Departments</span>
+  			</button>
+  			<button mat-menu-item>
+  				<mat-icon>store_mall_directory</mat-icon>
+    			<span>Stations</span>
+  			</button>
+  			<button mat-menu-item>
+  				<mat-icon>local_taxi</mat-icon>
+    			<span>Apparatus Types</span>
+  			</button>
+  			<button mat-menu-item>
+  				<mat-icon>notifications_active</mat-icon>
+    			<span>Incident Simulator</span>
+  			</button>
+		</mat-menu>
+		<div id="app-title">{{ title }}</div>
 	</mat-toolbar>
-	<div id="side-toolbar-container" class="mat-elevation-z6"></div>
 	<div id="controls-container" class="mat-elevation-z6"></div>
 	<div id="map-container"></div>
 </div>
