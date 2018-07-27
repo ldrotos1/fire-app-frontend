@@ -1,11 +1,3 @@
-mat-toolbar {
-	z-index: 99;
-}
-
-#app-title {
-	margin-left: 10px;
-}
-
 #controls-container {
   position: fixed;
   top: 64px;

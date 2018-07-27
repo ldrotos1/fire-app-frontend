@@ -1,0 +1,7 @@
+mat-toolbar {
+	z-index: 99;
+}
+
+#app-title {
+	margin-left: 10px;
+}
