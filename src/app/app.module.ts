@@ -10,12 +10,22 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { HeaderComponent } from './header/header.component';
+import { UserGuideComponent } from './user-guide/user-guide.component';
+import { DepartmentInfoComponent } from './department-info/department-info.component';
+import { StationInfoComponent } from './station-info/station-info.component';
+import { ApparatusInfoComponent } from './apparatus-info/apparatus-info.component';
+import { IncidentComponent } from './incident/incident.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    HeaderComponent
+    HeaderComponent,
+    UserGuideComponent,
+    DepartmentInfoComponent,
+    StationInfoComponent,
+    ApparatusInfoComponent,
+    IncidentComponent
   ],
   imports: [
     BrowserModule,
