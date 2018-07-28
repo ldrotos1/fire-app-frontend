@@ -15,6 +15,7 @@ import { DepartmentInfoComponent } from './department-info/department-info.compo
 import { StationInfoComponent } from './station-info/station-info.component';
 import { ApparatusInfoComponent } from './apparatus-info/apparatus-info.component';
 import { IncidentComponent } from './incident/incident.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { IncidentComponent } from './incident/incident.component';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,26 +3,26 @@
 		<mat-icon aria-label="Menu">menu</mat-icon>
 	</button>
 	<mat-menu #mainMenu="matMenu" [overlapTrigger]="false">
-		<button mat-menu-item>
+		<button mat-menu-item routerLink="/userguide">
    			<mat-icon>info</mat-icon>
    			<span>User Guide</span>
- 			</button>
- 			<button mat-menu-item>
- 				<mat-icon>location_city</mat-icon>
+ 		</button>
+ 		<button mat-menu-item routerLink="/departments">
+ 			<mat-icon>location_city</mat-icon>
    			<span>Departments</span>
- 			</button>
- 			<button mat-menu-item>
- 				<mat-icon>store_mall_directory</mat-icon>
+ 		</button>
+ 		<button mat-menu-item routerLink="/stations">
+ 			<mat-icon>store_mall_directory</mat-icon>
    			<span>Stations</span>
- 			</button>
- 			<button mat-menu-item>
- 				<mat-icon>local_taxi</mat-icon>
+ 		</button>
+ 		<button mat-menu-item routerLink="/apparatus">
+ 			<mat-icon>local_taxi</mat-icon>
    			<span>Apparatus Types</span>
- 			</button>
- 			<button mat-menu-item>
- 				<mat-icon>notifications_active</mat-icon>
+ 		</button>
+ 		<button mat-menu-item routerLink="/incident">
+ 			<mat-icon>notifications_active</mat-icon>
    			<span>Incident Simulator</span>
- 			</button>
+ 		</button>
 	</mat-menu>
 	<div id="app-title">{{ title }}</div>
 </mat-toolbar>
