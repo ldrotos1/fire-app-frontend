@@ -8,14 +8,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
-import { AppHeaderComponent } from './app-header/app-header.component';
 import { MapComponent } from './map/map.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppHeaderComponent,
-    MapComponent
+    MapComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
