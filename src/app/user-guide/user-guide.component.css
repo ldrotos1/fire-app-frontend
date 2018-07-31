@@ -1,0 +1,19 @@
+#user-guide-container {
+	font-family: "Verdana", "Arial";
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+.sub-section {
+	margin-left: 1em;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon {
+	margin-right: 10px;
+}

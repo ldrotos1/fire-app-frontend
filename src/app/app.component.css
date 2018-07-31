@@ -6,4 +6,5 @@
   width: 500px;
   z-index: -1;
   background-color: #f2f2f2;
+  overflow: scroll;
 }
