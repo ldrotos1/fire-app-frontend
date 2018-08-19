@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { StationLite } from './classes/StationLite';
 import { Station } from './classes/Station';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Station } from './classes/Station';
 export class StationsService {
 
   private stationsUrl = 'http://localhost:8080/services/rest/information/station/all';
-  private stationUrl = 'http://localhost:8080/services/rest/information/station/byid/${stationId}';
+  private stationUrl = 'http://localhost:8080/services/rest/information/station/byid';
 
   constructor( private http: HttpClient ) {
   }
@@ -26,8 +27,9 @@ export class StationsService {
   /**
    * Gets the specified fire station
    */
-  getStation( stationId: number ): Observable<Station> {
+  getStation( stationId: string ): Observable<Station> {
 
-    return this.http.get<Station>( this.stationUrl );
+    const options = { params: new HttpParams().set( 'id', stationId ) };
+    return this.http.get<Station>( this.stationUrl, options );
   }
 }

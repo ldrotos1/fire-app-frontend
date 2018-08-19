@@ -1,0 +1,42 @@
+#station-info-container {
+	margin: 0em 1em 1em 1em;
+}
+
+.sub-header {
+	color: #ffffff;
+	background-color: #792d2d;
+	position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.icon {
+	margin-right: 10px;
+}
+
+#control-card {
+	margin-top: 15px;
+}
+
+#auto-select-form {
+	display: flex;
+}
+
+#auto-select-control {
+	flex-grow: 1;	
+}
+
+#station-info {
+	margin-top: 15px;
+	height: 100%;
+}
+
+mat-card table {
+	width: 100%;
+}
+
+mat-card {
+	background-color: #fbfbfb
+}
+
