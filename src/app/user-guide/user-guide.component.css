@@ -1,18 +1,35 @@
+.sub-header {
+	color: #ffffff;
+	background-color: #792d2d;
+	position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.icon {
+	margin-right: 10px;
+}
+
 #user-guide-container {
-	font-family: "Verdana", "Arial";
-	margin: 0em 1em 1em 1em;
+	margin: 1em;
 }
 
 .sub-section {
-	margin-left: 1em;
+	margin: 1.5em 0em 0em 1em;
 }
 
 .flex-container {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 0.5em;
 }
 
-.icon {
-	margin-right: 10px;
+mat-card {
+	background-color: #fbfbfb
+}
+
+h3 {
+ margin-bottom: 0px;
 }
