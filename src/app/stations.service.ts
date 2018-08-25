@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { StationLite } from './classes/StationLite';
 import { Station } from './classes/Station';
+import { StationMap } from './classes/stationmap';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable({
@@ -22,6 +23,14 @@ export class StationsService {
   getStations(): Observable<StationLite[]> {
 
     return this.http.get<StationLite[]>( this.stationsUrl );
+  }
+
+  /**
+   * Gets an array of all fire stations.
+   */
+  getMapStations(): Observable<StationMap[]> {
+
+    return this.http.get<StationMap[]>( this.stationsUrl );
   }
 
   /**
