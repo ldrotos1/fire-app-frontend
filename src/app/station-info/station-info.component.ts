@@ -98,6 +98,7 @@ export class StationInfoComponent implements OnInit, OnDestroy {
         });
     } else {
       this.selectedStation = null;
+      this.mapStateService.selectStation( '0' );
     }
   }
 
