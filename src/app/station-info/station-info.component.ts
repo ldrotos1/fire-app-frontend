@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { StationLite } from '../classes/StationLite';
 import { Station } from '../classes/Station';
 import { Apparatus } from '../classes/apparatus';
 import { StationsService } from '../stations.service';
+import { MapstateService } from '../mapstate.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -12,20 +13,38 @@ import { map, startWith } from 'rxjs/operators';
   templateUrl: './station-info.component.html',
   styleUrls: ['./station-info.component.css']
 })
-export class StationInfoComponent implements OnInit {
+export class StationInfoComponent implements OnInit, OnDestroy {
 
   private stations: StationLite[];
-  private selectedStation: Station;
+  private selectedStation: Station = null;
+  private selectedStationId = '0';
   private stationSelector: FormControl;
   private filteredStations: Observable<StationLite[]>;
   private displayedColumns: string[] = [ 'unitDesignator', 'typeName', 'category' ];
 
-  constructor( private stationsService: StationsService ) { }
+  constructor(
+    private stationsService: StationsService,
+    private mapStateService: MapstateService ) { }
 
   ngOnInit() {
-
     this.getStations();
     this.stationSelector = new FormControl();
+    this.mapStateService.selectedStation.subscribe( stationId => {
+
+      this.selectedStationId = stationId;
+
+      // Selects the station if the stations list has been initialized
+      if ( this.stations !== undefined ) {
+
+        this._setStationValue( stationId );
+      }
+    });
+  }
+
+  ngOnDestroy() {
+
+    // Clears the station selection
+    this.mapStateService.selectStation( '0' );
   }
 
   /**
@@ -49,7 +68,13 @@ export class StationInfoComponent implements OnInit {
         this.stations = stations;
 
         this.filteredStations = this.stationSelector.valueChanges
-          .pipe( startWith(''), map(value => this._filter(value)) );
+          .pipe( startWith(''), map( value => this._filter( value ) ) );
+
+        // If a station has already been selected, load it into the form
+        if ( this.selectedStationId !== '0' ) {
+
+          this._setStationValue( this.selectedStationId );
+        }
       });
   }
 
@@ -62,11 +87,36 @@ export class StationInfoComponent implements OnInit {
 
     if ( stat.hasOwnProperty( 'stationId' ) ) {
 
+      // Gets the station information
       this.stationsService.getStation( String( stat[ 'stationId' ] ) )
-        .subscribe( station => this.selectedStation = station );
+        .subscribe( station => {
+          this.selectedStation = station;
 
+          // Updates the map state
+          const stationId = this.selectedStation.stationId.toString();
+          this.mapStateService.selectStation( stationId );
+        });
     } else {
       this.selectedStation = null;
+    }
+  }
+
+  /**
+   * Sets the station in the form to the specified
+   * station by the station ID value
+   */
+  private _setStationValue( stationId: string ): void {
+
+    const stat = this.selectedStation;
+    if ( stat === null || stat.stationId.toString() !== stationId ) {
+
+      for ( const station of this.stations ) {
+
+        if ( station.stationId.toString() === stationId ) {
+          this.stationSelector.setValue( station );
+          break;
+        }
+      }
     }
   }
 

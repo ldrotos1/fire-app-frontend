@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Component, OnInit, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { StationsService } from '../stations.service';
 import { StationMap } from '../classes/StationMap';
+import { MapstateService } from '../mapstate.service';
+import { SymbologyService } from '../symbology.service';
 import * as L from 'leaflet';
 
 @NgModule({
@@ -30,27 +33,24 @@ export class MapComponent implements OnInit {
 
   private mapLayers = [];
   private stations: StationMap[];
+  private selectedStationId = '0';
 
-  constructor( private stationsService: StationsService, private zone: NgZone ) { }
+  constructor(
+    private stationsService: StationsService,
+    private mapStateService: MapstateService,
+    private symbologyService: SymbologyService,
+    private router: Router,
+    private zone: NgZone ) { }
 
   ngOnInit() {
     this.getMapStations();
+    this.mapStateService.selectedStation.subscribe( stationId => this.setSelectedStation( stationId ) );
   }
 
   /**
    * Gets the stations and adds them to the map
    */
   getMapStations(): void {
-
-    // Station map marker properties
-    const markerOptions = {
-      radius: 4,
-      color: '#000000',
-      weight: 1,
-      opacity: 1.0,
-      fillColor: '#E60000',
-      fillOpacity: 1.0
-    };
 
     this.stationsService.getMapStations()
       .subscribe( stations => {
@@ -59,20 +59,43 @@ export class MapComponent implements OnInit {
          this.stations.map( station => {
 
            // Creates the station marker
-           station.mapMarker = L.circleMarker( L.latLng( station.lat, station.lon ), markerOptions );
+           station.mapMarker = L.circleMarker( L.latLng( station.lat, station.lon ) );
+           station.mapMarker.setRadius( 4 );
+           station.mapMarker.setStyle( this.symbologyService.getStationSym() );
 
            // Sets up the event handlers
            station.mapMarker.on( 'mouseover', () => {
-             station.mapMarker.setRadius( 8 );
+             station.mapMarker.setRadius( 7 );
+
+             if ( this.selectedStationId === station.stationId.toString() ) {
+               station.mapMarker.setStyle( this.symbologyService.getSelectedStationHoverSym() );
+             } else {
+               station.mapMarker.setStyle( this.symbologyService.getStationHoverSym() );
+             }
            });
 
            station.mapMarker.on( 'mouseout', () => {
-             station.mapMarker.setRadius( 4 );
+
+             if ( this.selectedStationId === station.stationId.toString() ) {
+               station.mapMarker.setRadius( 7 );
+               station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
+             } else {
+               station.mapMarker.setRadius( 4 );
+               station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+             }
            });
 
            station.mapMarker.on( 'click', () => {
              this.zone.run(() => {
-               console.log( 'Station ' + station.stationName + ' clicked' );
+               this.setSelectedStation( station.stationId.toString() );
+
+               // Navigates to the station guide if it is the active view
+               if ( this.router.url !== 'stations' ) {
+                 this.router.navigate( [ 'stations' ] );
+                 this.mapStateService.selectStation( station.stationId.toString() );
+               } else {
+                 this.mapStateService.selectStation( station.stationId.toString() );
+               }
              });
            });
 
@@ -84,5 +107,28 @@ export class MapComponent implements OnInit {
            this.mapLayers.push( station.mapMarker );
          });
       });
+  }
+
+  /**
+   * Sets the selected station on the map
+   */
+  setSelectedStation( stationId: string ): void {
+
+    if ( this.selectedStationId !== stationId ) {
+
+      this.selectedStationId = stationId;
+
+      // Updates the map symbology
+      for ( const station of this.stations ) {
+
+        if ( station.stationId.toString() === stationId ) {
+          station.mapMarker.setRadius( 7 );
+          station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
+        } else {
+          station.mapMarker.setRadius( 4 );
+          station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+        }
+      }
+    }
   }
 }
