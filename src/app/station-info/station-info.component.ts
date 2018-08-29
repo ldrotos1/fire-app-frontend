@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { StationLite } from '../classes/StationLite';
 import { Station } from '../classes/Station';
 import { Apparatus } from '../classes/apparatus';
-import { StationsService } from '../stations.service';
-import { MapstateService } from '../mapstate.service';
+import { StationsService } from '../services/stations.service';
+import { MapstateService } from '../services/mapstate.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 

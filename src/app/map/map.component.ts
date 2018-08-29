@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { StationsService } from '../stations.service';
+import { StationsService } from '../services/stations.service';
 import { StationMap } from '../classes/StationMap';
-import { MapstateService } from '../mapstate.service';
-import { SymbologyService } from '../symbology.service';
+import { MapstateService } from '../services/mapstate.service';
+import { SymbologyService } from '../services/symbology.service';
 import * as L from 'leaflet';
 
 @NgModule({
