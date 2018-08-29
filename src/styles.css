@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+#info-container {
+	margin: 15px 15px 15px 15px;
+}
+
+mat-card {
+	background-color: #fbfbfb
+}
+
+mat-card:nth-child(2) {
+	margin-top: 15px;
+	height: 100%;
+}
