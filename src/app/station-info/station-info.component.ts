@@ -15,6 +15,8 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class StationInfoComponent implements OnInit, OnDestroy {
 
+  private title = 'Fire Station Information';
+  private icon = 'store_mall_directory';
   private stations: StationLite[];
   private selectedStation: Station = null;
   private selectedStationId = '0';

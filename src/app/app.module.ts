@@ -24,6 +24,7 @@ import { StationInfoComponent } from './station-info/station-info.component';
 import { ApparatusInfoComponent } from './apparatus-info/apparatus-info.component';
 import { IncidentComponent } from './incident/incident.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { SubHeaderComponent } from './sub-header/sub-header.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AppRoutingModule } from './/app-routing.module';
     DepartmentInfoComponent,
     StationInfoComponent,
     ApparatusInfoComponent,
-    IncidentComponent
+    IncidentComponent,
+    SubHeaderComponent
   ],
   imports: [
     BrowserModule,

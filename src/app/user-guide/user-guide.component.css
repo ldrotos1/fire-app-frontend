@@ -1,16 +1,3 @@
-.sub-header {
-	color: #ffffff;
-	background-color: #792d2d;
-	position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.icon {
-	margin-right: 10px;
-}
-
 #user-guide-container {
 	margin: 1em;
 }
