@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 
@@ -25,6 +26,7 @@ import { ApparatusInfoComponent } from './apparatus-info/apparatus-info.componen
 import { IncidentComponent } from './incident/incident.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { SubHeaderComponent } from './sub-header/sub-header.component';
+import { DepartmentSelectorComponent } from './department-info/department-selector/department-selector.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { SubHeaderComponent } from './sub-header/sub-header.component';
     StationInfoComponent,
     ApparatusInfoComponent,
     IncidentComponent,
-    SubHeaderComponent
+    SubHeaderComponent,
+    DepartmentSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { SubHeaderComponent } from './sub-header/sub-header.component';
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
+    MatSelectModule,
     MatCardModule,
     MatTableModule,
     AppRoutingModule

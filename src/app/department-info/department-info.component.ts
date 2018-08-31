@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DepartmentInfoComponent implements OnInit {
 
+  title = 'Fire Department Information';
+  icon = 'location_city';
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  onDeptSelected( value ) {
+    console.log('Station selected');
+  }
 }

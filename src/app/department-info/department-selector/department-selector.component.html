@@ -1,0 +1,9 @@
+<mat-card>
+	<mat-form-field>
+	  <mat-select placeholder="Select a department" (selectionChange)="selectionChange($event)">
+	    <mat-option *ngFor="let dept of departments" [value]="dept">
+	      {{dept.departmentName}}
+	    </mat-option>
+	  </mat-select>
+	</mat-form-field>
+</mat-card>
