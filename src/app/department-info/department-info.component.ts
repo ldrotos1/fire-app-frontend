@@ -13,6 +13,7 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
   private title = 'Fire Department Information';
   private icon = 'location_city';
   private department: Department;
+  private unitCount: number;
 
   constructor(
     private departmentService: DepartmentService,
@@ -36,6 +37,15 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
     // Gets the department information
     this.departmentService.getDepartment( String( dept.departmentId ) )
         .subscribe( department => {
+
+          // Computes the unit count and sets stations' default highlight state
+          this.unitCount = 0;
+
+          for ( const station of department.stations ) {
+            this.unitCount = this.unitCount + station.unitCount;
+            station.isHighlighted = false;
+          }
+
           this.department = department;
 
           // Updates the map state

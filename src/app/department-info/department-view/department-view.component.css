@@ -1,0 +1,29 @@
+#dept-info {
+	display: flex;
+	flex-direction: row;
+	margin-left: 10px;	
+}
+
+.dept-info-section {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+}
+
+#table-container {
+	margin-top: 20px;
+  	max-height: 300px;
+  	overflow: auto;
+}
+
+table {
+	width: 100%;
+}
+
+tr.data-row:hover {
+ 	background: #F7FE2E;
+}
+
+.row-hover {
+  	background: #F7FE2E;
+}

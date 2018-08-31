@@ -1,5 +1,6 @@
 import { Department } from '../../classes/department';
-import { Component, OnInit, Input } from '@angular/core';
+import { MapstateService } from '../../services/mapstate.service';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-department-view',
@@ -9,10 +10,41 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DepartmentViewComponent implements OnInit {
 
   @Input() department: Department;
+  @Input() unitCount: number;
 
-  constructor() { }
+  private displayedColumns: string[] = [ 'stationDesignator', 'stationName', 'unitCount' ];
+
+  constructor( private mapstateService: MapstateService,  private zone: NgZone ) { }
 
   ngOnInit() {
+    this.mapstateService.currentHoverStationSym.subscribe( stationId => {
+      this.zone.run(() => {
+
+        for ( const station of this.department.stations ) {
+
+          if ( station.stationId === stationId ) {
+            station.isHighlighted = true;
+          } else {
+            station.isHighlighted = false;
+          }
+        }
+      });
+    });
   }
 
+  /**
+   * Event handler for when the cursor mouses over a station
+   * table row
+   */
+  mouseEnter( station ): void {
+    this.mapstateService.setRowHoverStation( station.stationId );
+  }
+
+  /**
+   * Event handler for when the cursor mouses out of a
+   * station table row
+   */
+  mouseLeave( station ): void {
+    this.mapstateService.setRowHoverStation( 0 );
+  }
 }

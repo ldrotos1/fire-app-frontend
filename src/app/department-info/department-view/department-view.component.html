@@ -1,1 +1,42 @@
-
+<div class="mat-typography">
+	<h2 style="margin-bottom:5px"><b>{{ department.departmentName }}</b></h2>
+	<div id="dept-info">
+		<div class="dept-info-section">
+			<h4 style="margin-bottom:0px">Chief: <b>{{ department.chief }}</b></h4>
+			<h4 style="margin-bottom:0px">Personnel: <b>{{ department.personnel  | number }}</b></h4>
+		</div>
+		<div class="dept-info-section">
+			<h4 style="margin-bottom:0px">Number of Stations: <b>{{ department.stations.length }}</b></h4>
+			<h4 style="margin-bottom:0px">Number of Units: <b>{{ unitCount }}</b></h4>
+		</div>
+	</div>
+	
+	<div id="table-container" class="mat-elevation-z2">
+		<table mat-table [dataSource]="department.stations">
+			
+			<ng-container matColumnDef="stationDesignator">
+	 			<th mat-header-cell *matHeaderCellDef>Station Number</th>
+	  			<td mat-cell *matCellDef="let station">{{ station.stationDesignator }}</td>
+			</ng-container>
+			
+			<ng-container matColumnDef="stationName">
+	 			<th mat-header-cell *matHeaderCellDef>Station Name</th>
+	  			<td mat-cell *matCellDef="let station">{{ station.stationName }}</td>
+			</ng-container>
+			
+			<ng-container matColumnDef="unitCount">
+	 			<th mat-header-cell *matHeaderCellDef>Number of Units</th>
+	  			<td mat-cell *matCellDef="let station">{{ station.unitCount }}</td>
+			</ng-container>
+			
+			<tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+	 		<tr mat-row class="data-row"
+	 			*matRowDef="let row; columns: displayedColumns;"
+	 			[ngClass]="{ 'row-hover': row.isHighlighted === true }"
+	 			(mouseenter)="mouseEnter(row)" 
+	 			(mouseleave)="mouseLeave(row)">
+	 		</tr>
+		</table>
+	</div>
+	
+</div>

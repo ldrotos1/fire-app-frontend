@@ -35,6 +35,7 @@ export class MapComponent implements OnInit {
   private stations: StationMapSymbol[];
   private selectedStationId = '0';
   private selectedDepartmentId = 0;
+  private hoveringStation = 0;
 
   constructor(
     private stationsService: StationsService,
@@ -45,11 +46,17 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.getMapStations();
+
     this.mapStateService.selectedStation.subscribe( stationId => {
       this.setSelectedStation( stationId );
     });
+
     this.mapStateService.selectedDepartment.subscribe( departmentId => {
       this.setSelectedDepartment( departmentId );
+    });
+
+    this.mapStateService.currentRowHoverStation.subscribe( stationId => {
+      this.setRowHoverStation( stationId );
     });
   }
 
@@ -77,15 +84,17 @@ export class MapComponent implements OnInit {
 
              switch ( station.symbolState ) {
                case 'DEFAULT':
-                 station.mapMarker.setStyle( this.symbologyService.getStationHoverSym() );
+                 station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
                  break;
                case 'SELECTED':
-                 station.mapMarker.setStyle( this.symbologyService.getSelectedStationHoverSym() );
+                 station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
                  break;
                case 'GREYOUT':
                  station.mapMarker.setStyle( this.symbologyService.getGreyOutStationHoverSym() );
                  break;
              }
+
+             this.mapStateService.setHoverStationSym( station.stationId );
            });
 
            // Sets up the mouse-out event handler
@@ -105,6 +114,8 @@ export class MapComponent implements OnInit {
                  station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
                  break;
              }
+
+             this.mapStateService.setHoverStationSym( 0 );
            });
 
            // Sets up the mouse-click event handler
@@ -181,6 +192,32 @@ export class MapComponent implements OnInit {
             station.mapMarker.setRadius( 4 );
             station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
           }
+        }
+      }
+    }
+  }
+
+  /**
+   * Sets the station that should be symbolized as being hovered over
+   */
+  setRowHoverStation( stationId: number ): void {
+
+    if ( this.stations !== undefined ) {
+
+      for ( const station of this.stations ) {
+
+        if ( station.stationId === stationId ) {
+          station.symbolState = 'SELECTED';
+          station.mapMarker.setRadius( 7 );
+          station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
+        } else if ( station.departmentId === this.selectedDepartmentId ) {
+          station.symbolState = 'DEFAULT';
+          station.mapMarker.setRadius( 4 );
+          station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+        } else {
+          station.symbolState = 'GREYOUT';
+          station.mapMarker.setRadius( 4 );
+          station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
         }
       }
     }

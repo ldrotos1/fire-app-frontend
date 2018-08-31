@@ -5,4 +5,5 @@ export class DepartmentStation {
   departmentId: number;
   stationName: string;
   unitCount: number;
+  isHighlighted: boolean;
 }

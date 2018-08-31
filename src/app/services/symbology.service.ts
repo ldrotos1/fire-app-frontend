@@ -6,9 +6,7 @@ import { Injectable } from '@angular/core';
 export class SymbologyService {
 
   private stationDefaultSym;
-  private stationDefaultHoverSym;
   private stationSelectedSym;
-  private stationSelectedHoverSym;
   private stationGreyOutSym;
   private stationGreyOutHoverSym;
 
@@ -22,23 +20,7 @@ export class SymbologyService {
       fillOpacity: 1.0
     };
 
-    this.stationDefaultHoverSym = {
-      color: '#000000',
-      weight: 2,
-      opacity: 1.0,
-      fillColor: '#E60000',
-      fillOpacity: 1.0
-    };
-
     this.stationSelectedSym = {
-      color: '#000000',
-      weight: 2,
-      opacity: 1.0,
-      fillColor: '#F7FE2E',
-      fillOpacity: 1.0
-    };
-
-    this.stationSelectedHoverSym = {
       color: '#000000',
       weight: 2,
       opacity: 1.0,
@@ -73,26 +55,10 @@ export class SymbologyService {
 
   /**
    * Returns the station symbology style object for
-   * a unselected station that is being hovered over
-   */
-  getStationHoverSym(): object {
-    return this.stationDefaultHoverSym;
-  }
-
-  /**
-   * Returns the station symbology style object for
    * a selected station
    */
   getSelectedStationSym(): object {
     return this.stationSelectedSym;
-  }
-
-  /**
-   * Returns the station symbology style object for
-   * a selected station that is being hovered over
-   */
-  getSelectedStationHoverSym(): object {
-    return this.stationSelectedHoverSym;
   }
 
   /**
