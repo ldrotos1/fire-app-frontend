@@ -3,7 +3,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { StationsService } from '../services/stations.service';
-import { StationMap } from '../classes/StationMap';
+import { StationMapSymbol } from '../classes/StationMapSymbol';
 import { MapstateService } from '../services/mapstate.service';
 import { SymbologyService } from '../services/symbology.service';
 import * as L from 'leaflet';
@@ -32,8 +32,9 @@ export class MapComponent implements OnInit {
   };
 
   private mapLayers = [];
-  private stations: StationMap[];
+  private stations: StationMapSymbol[];
   private selectedStationId = '0';
+  private selectedDepartmentId = 0;
 
   constructor(
     private stationsService: StationsService,
@@ -44,7 +45,12 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.getMapStations();
-    this.mapStateService.selectedStation.subscribe( stationId => this.setSelectedStation( stationId ) );
+    this.mapStateService.selectedStation.subscribe( stationId => {
+      this.setSelectedStation( stationId );
+    });
+    this.mapStateService.selectedDepartment.subscribe( departmentId => {
+      this.setSelectedDepartment( departmentId );
+    });
   }
 
   /**
@@ -59,32 +65,49 @@ export class MapComponent implements OnInit {
          this.stations.map( station => {
 
            // Creates the station marker
+           station.symbolState = 'DEFAULT';
            station.mapMarker = L.circleMarker( L.latLng( station.lat, station.lon ) );
            station.mapMarker.setRadius( 4 );
            station.mapMarker.setStyle( this.symbologyService.getStationSym() );
 
-           // Sets up the event handlers
+           // Sets up the mouse-over event handler
            station.mapMarker.on( 'mouseover', () => {
+
              station.mapMarker.setRadius( 7 );
 
-             if ( this.selectedStationId === station.stationId.toString() ) {
-               station.mapMarker.setStyle( this.symbologyService.getSelectedStationHoverSym() );
-             } else {
-               station.mapMarker.setStyle( this.symbologyService.getStationHoverSym() );
+             switch ( station.symbolState ) {
+               case 'DEFAULT':
+                 station.mapMarker.setStyle( this.symbologyService.getStationHoverSym() );
+                 break;
+               case 'SELECTED':
+                 station.mapMarker.setStyle( this.symbologyService.getSelectedStationHoverSym() );
+                 break;
+               case 'GREYOUT':
+                 station.mapMarker.setStyle( this.symbologyService.getGreyOutStationHoverSym() );
+                 break;
              }
            });
 
+           // Sets up the mouse-out event handler
            station.mapMarker.on( 'mouseout', () => {
 
-             if ( this.selectedStationId === station.stationId.toString() ) {
-               station.mapMarker.setRadius( 7 );
-               station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
-             } else {
-               station.mapMarker.setRadius( 4 );
-               station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+             switch ( station.symbolState ) {
+               case 'DEFAULT':
+                 station.mapMarker.setRadius( 4 );
+                 station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+                 break;
+               case 'SELECTED':
+                 station.mapMarker.setRadius( 7 );
+                 station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
+                 break;
+               case 'GREYOUT':
+                 station.mapMarker.setRadius( 4 );
+                 station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
+                 break;
              }
            });
 
+           // Sets up the mouse-click event handler
            station.mapMarker.on( 'click', () => {
              this.zone.run(() => {
                this.setSelectedStation( station.stationId.toString() );
@@ -122,11 +145,42 @@ export class MapComponent implements OnInit {
       for ( const station of this.stations ) {
 
         if ( station.stationId.toString() === stationId ) {
+          station.symbolState = 'SELECTED';
           station.mapMarker.setRadius( 7 );
           station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
         } else {
+          station.symbolState = 'DEFAULT';
           station.mapMarker.setRadius( 4 );
           station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+        }
+      }
+    }
+  }
+
+  /**
+   * Selects the stations on the map that belong to
+   * the specified fire department
+   */
+  setSelectedDepartment( departmentId: number ): void {
+
+    if ( this.selectedDepartmentId !== departmentId ) {
+
+      this.selectedDepartmentId = departmentId;
+
+      if ( departmentId !== 0 ) {
+
+        // Updates the map symbology
+        for ( const station of this.stations ) {
+
+          if ( station.departmentId === departmentId ) {
+            station.symbolState = 'DEFAULT';
+            station.mapMarker.setRadius( 4 );
+            station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+          } else {
+            station.symbolState = 'GREYOUT';
+            station.mapMarker.setRadius( 4 );
+            station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
+          }
         }
       }
     }

@@ -1,5 +1,9 @@
 <app-sub-header [title]="title" [icon]="icon"></app-sub-header>
 <div id="info-container">
-	<app-department-selector (deptSelected)="onDeptSelected($event)"></app-department-selector>
-	<mat-card></mat-card>
+	<mat-card>
+		<app-department-selector (deptSelected)="onDeptSelected($event)"></app-department-selector>
+	</mat-card>
+	<mat-card *ngIf="department">
+		<app-department-view [department]="department"></app-department-view>
+	</mat-card>
 </div>

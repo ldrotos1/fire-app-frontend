@@ -7,8 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 export class MapstateService {
 
   private stationSelection = new BehaviorSubject( '0' );
+  private departmentSelection = new BehaviorSubject( 0 );
 
   selectedStation = this.stationSelection.asObservable();
+  selectedDepartment = this.departmentSelection.asObservable();
 
   constructor() { }
 
@@ -18,5 +20,13 @@ export class MapstateService {
   selectStation( stationId: string ): void {
 
     this.stationSelection.next( stationId );
+  }
+
+  /**
+   * Updates the selected department
+   */
+  selectDepartment( departmentId: number ): void {
+
+    this.departmentSelection.next( departmentId );
   }
 }

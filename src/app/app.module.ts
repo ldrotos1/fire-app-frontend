@@ -27,6 +27,7 @@ import { IncidentComponent } from './incident/incident.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { SubHeaderComponent } from './sub-header/sub-header.component';
 import { DepartmentSelectorComponent } from './department-info/department-selector/department-selector.component';
+import { DepartmentViewComponent } from './department-info/department-view/department-view.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { DepartmentSelectorComponent } from './department-info/department-select
     ApparatusInfoComponent,
     IncidentComponent,
     SubHeaderComponent,
-    DepartmentSelectorComponent
+    DepartmentSelectorComponent,
+    DepartmentViewComponent
   ],
   imports: [
     BrowserModule,
