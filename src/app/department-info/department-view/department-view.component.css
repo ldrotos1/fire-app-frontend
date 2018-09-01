@@ -27,3 +27,8 @@ tr.data-row:hover {
 .row-hover {
   	background: #F7FE2E;
 }
+
+app-unit-type-chart {
+	display: block;
+	margin-top: 25px;
+}

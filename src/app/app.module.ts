@@ -15,6 +15,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -28,6 +29,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { SubHeaderComponent } from './sub-header/sub-header.component';
 import { DepartmentSelectorComponent } from './department-info/department-selector/department-selector.component';
 import { DepartmentViewComponent } from './department-info/department-view/department-view.component';
+import { UnitTypeChartComponent } from './department-info/department-view/unit-type-chart/unit-type-chart.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { DepartmentViewComponent } from './department-info/department-view/depar
     IncidentComponent,
     SubHeaderComponent,
     DepartmentSelectorComponent,
-    DepartmentViewComponent
+    DepartmentViewComponent,
+    UnitTypeChartComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import { DepartmentViewComponent } from './department-info/department-view/depar
     MatSelectModule,
     MatCardModule,
     MatTableModule,
+    ChartsModule,
     AppRoutingModule
   ],
   providers: [],

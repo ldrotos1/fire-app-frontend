@@ -1,5 +1,5 @@
 <div class="mat-typography">
-	<h2 style="margin-bottom:5px"><b>{{ department.departmentName }}</b></h2>
+	<h2 style="margin-bottom:5px">{{ department.departmentName }}</h2>
 	<div id="dept-info">
 		<div class="dept-info-section">
 			<h4 style="margin-bottom:0px">Chief: <b>{{ department.chief }}</b></h4>
@@ -7,11 +7,11 @@
 		</div>
 		<div class="dept-info-section">
 			<h4 style="margin-bottom:0px">Number of Stations: <b>{{ department.stations.length }}</b></h4>
-			<h4 style="margin-bottom:0px">Number of Units: <b>{{ unitCount }}</b></h4>
+			<h4 style="margin-bottom:0px">Number of Units: <b>{{ department.unitCount }}</b></h4>
 		</div>
 	</div>
 	
-	<div id="table-container" class="mat-elevation-z2">
+	<div id="table-container" class="mat-elevation-z3">
 		<table mat-table [dataSource]="department.stations">
 			
 			<ng-container matColumnDef="stationDesignator">
@@ -39,4 +39,5 @@
 		</table>
 	</div>
 	
+	<app-unit-type-chart *ngIf="chartData" [chartData]="chartData"></app-unit-type-chart>
 </div>

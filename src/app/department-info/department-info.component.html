@@ -3,7 +3,7 @@
 	<mat-card>
 		<app-department-selector (deptSelected)="onDeptSelected($event)"></app-department-selector>
 	</mat-card>
-	<mat-card *ngIf="department">
-		<app-department-view [department]="department" [unitCount]="unitCount"></app-department-view>
+	<mat-card *ngIf="department && chartData">
+		<app-department-view [department]="department" [chartData]="chartData"></app-department-view>
 	</mat-card>
 </div>

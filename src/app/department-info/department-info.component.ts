@@ -1,7 +1,8 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Department } from '../classes/department';
 import { DepartmentService } from '../services/department.service';
 import { MapstateService } from '../services/mapstate.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ChartData } from '../classes/chartdata';
 
 @Component({
   selector: 'app-department-info',
@@ -13,7 +14,7 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
   private title = 'Fire Department Information';
   private icon = 'location_city';
   private department: Department;
-  private unitCount: number;
+  private chartData: ChartData;
 
   constructor(
     private departmentService: DepartmentService,
@@ -38,18 +39,39 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
     this.departmentService.getDepartment( String( dept.departmentId ) )
         .subscribe( department => {
 
-          // Computes the unit count and sets stations' default highlight state
-          this.unitCount = 0;
-
+          // Sets stations' default highlight state
           for ( const station of department.stations ) {
-            this.unitCount = this.unitCount + station.unitCount;
             station.isHighlighted = false;
           }
 
+          // Creates the chart data object
+          const chartDataPoints = new Array<number>();
+          chartDataPoints.push( department.unitTypeMap[ 'Fire Suppression' ] );
+          chartDataPoints.push( department.unitTypeMap[ 'Aerial Support' ] );
+          chartDataPoints.push( department.unitTypeMap[ 'Rescue' ] );
+          chartDataPoints.push( department.unitTypeMap[ 'Medical' ] );
+          chartDataPoints.push( department.unitTypeMap[ 'Command' ] );
+          chartDataPoints.push( department.unitTypeMap[ 'Special Incident' ] );
+          chartDataPoints.push( department.unitTypeMap[ 'General Support' ] );
+
+          const chartDataset = new ChartData();
+          chartDataset.dataPoints = chartDataPoints;
+          chartDataset.dataLabels = [
+            'Fire Suppression',
+            'Aerial Support',
+            'Rescue',
+            'Medical',
+            'Command',
+            'Special Incident',
+            'General Support'
+          ];
+
           this.department = department;
+          this.chartData = chartDataset;
 
           // Updates the map state
           this.mapstateService.selectDepartment( department.departmentId );
-        });
+        }
+    );
   }
 }

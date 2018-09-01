@@ -1,6 +1,7 @@
+import { ChartData } from '../../classes/chartdata';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { Department } from '../../classes/department';
 import { MapstateService } from '../../services/mapstate.service';
-import { Component, OnInit, Input, NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-department-view',
@@ -10,25 +11,17 @@ import { Component, OnInit, Input, NgZone } from '@angular/core';
 export class DepartmentViewComponent implements OnInit {
 
   @Input() department: Department;
-  @Input() unitCount: number;
+  @Input() chartData: ChartData;
 
   private displayedColumns: string[] = [ 'stationDesignator', 'stationName', 'unitCount' ];
 
-  constructor( private mapstateService: MapstateService,  private zone: NgZone ) { }
+  constructor( private mapstateService: MapstateService,  private zone: NgZone ) {
+  }
 
   ngOnInit() {
+
     this.mapstateService.currentHoverStationSym.subscribe( stationId => {
-      this.zone.run(() => {
-
-        for ( const station of this.department.stations ) {
-
-          if ( station.stationId === stationId ) {
-            station.isHighlighted = true;
-          } else {
-            station.isHighlighted = false;
-          }
-        }
-      });
+      this.updateTableRowSym( stationId );
     });
   }
 
@@ -46,5 +39,24 @@ export class DepartmentViewComponent implements OnInit {
    */
   mouseLeave( station ): void {
     this.mapstateService.setRowHoverStation( 0 );
+  }
+
+  /**
+   * Sets the station table highlighted row to the
+   * row corresponding to the specified station
+   */
+  updateTableRowSym( stationId ): void {
+
+    this.zone.run(() => {
+
+      for ( const station of this.department.stations ) {
+
+        if ( station.stationId === stationId ) {
+          station.isHighlighted = true;
+        } else {
+          station.isHighlighted = false;
+        }
+      }
+    });
   }
 }

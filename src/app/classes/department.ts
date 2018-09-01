@@ -10,6 +10,7 @@ export class Department {
   city: string;
   zip: string;
   phone: string;
+  unitCount: number;
   stations: DepartmentStation[];
-  units: Map<string, number>;
+  unitTypeMap: Map<string, number>;
 }
