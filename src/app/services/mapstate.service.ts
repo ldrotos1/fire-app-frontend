@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MapstateService {
 
-  private stationSelection = new BehaviorSubject( '0' );
+  private stationSelection = new BehaviorSubject( 0 );
   private departmentSelection = new BehaviorSubject( 0 );
   private rowHoverStation = new BehaviorSubject( 0 );
   private hoverStationSym = new BehaviorSubject( 0 );
@@ -21,7 +21,7 @@ export class MapstateService {
   /**
    * Updates the selected station
    */
-  selectStation( stationId: string ): void {
+  selectStation( stationId: number ): void {
 
     this.stationSelection.next( stationId );
   }

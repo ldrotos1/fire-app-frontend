@@ -1,28 +1,18 @@
 <app-sub-header [title]="title" [icon]="icon"></app-sub-header>
 <div id="info-container">
-	<mat-card id="control-card">
-		<form id="auto-select-form">
-			<mat-form-field id="auto-select-control">
-	 			<input type="text" spellcheck="false" placeholder="Select a fire station" (ngModelChange)="stationSelected()" 
-	 				matInput [formControl]="stationSelector" [matAutocomplete]="auto">
-	 			<mat-autocomplete [displayWith]="stationDisplay" #auto="matAutocomplete">
-				  <mat-option *ngFor="let station of filteredStations | async" [value]="station">
-				    {{ station.stationDesignator }} - {{ station.stationName }} - {{ station.departmentName }}
-				  </mat-option>
-				</mat-autocomplete>
-			</mat-form-field>
-		</form>
-	</mat-card>
-	<mat-card *ngIf="selectedStation" id="station-info" class="mat-typography">
+
+	<app-station-autocomplete (stationSelected)="onStationSelected($event)"></app-station-autocomplete>
+	
+	<mat-card *ngIf="station" id="station-info" class="mat-typography">
 		<h2 style="margin-bottom:0px">
-			Station {{ selectedStation.stationDesignator }} - {{ selectedStation.stationName }}
+			Station {{ station.stationDesignator }} - {{ station.stationName }}
 		</h2>
-		<h3 style="margin-bottom:8px">{{ selectedStation.departmentName }}</h3>
-		<h4 style="margin-bottom:0px">{{ selectedStation.address }}</h4>
+		<h3 style="margin-bottom:8px">{{ station.departmentName }}</h3>
+		<h4 style="margin-bottom:0px">{{ station.address }}</h4>
 		<h4 style="margin-bottom:10px">
-			{{ selectedStation.city }}, {{ selectedStation.state }} {{ selectedStation.zip }}
+			{{ station.city }}, {{ station.state }} {{ station.zip }}
 		</h4>
-		<table mat-table [dataSource]="selectedStation.apparatus" class="mat-elevation-z2">
+		<table mat-table [dataSource]="station.apparatus" class="mat-elevation-z2">
 		
 			<ng-container matColumnDef="unitDesignator">
 	 			<th mat-header-cell *matHeaderCellDef>Unit Number</th>

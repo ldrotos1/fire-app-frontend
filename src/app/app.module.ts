@@ -31,6 +31,7 @@ import { DepartmentSelectorComponent } from './department-info/department-select
 import { DepartmentViewComponent } from './department-info/department-view/department-view.component';
 import { UnitTypeChartComponent } from './department-info/department-view/unit-type-chart/unit-type-chart.component';
 import { StationListComponent } from './department-info/department-view/station-list/station-list.component';
+import { StationAutocompleteComponent } from './station-info/station-autocomplete/station-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { StationListComponent } from './department-info/department-view/station-
     DepartmentSelectorComponent,
     DepartmentViewComponent,
     UnitTypeChartComponent,
-    StationListComponent
+    StationListComponent,
+    StationAutocompleteComponent
   ],
   imports: [
     BrowserModule,

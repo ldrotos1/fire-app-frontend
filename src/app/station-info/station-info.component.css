@@ -1,11 +1,3 @@
-#auto-select-form {
-	display: flex;
-}
-
-#auto-select-control {
-	flex-grow: 1;	
-}
-
 mat-card table {
 	width: 100%;
 }

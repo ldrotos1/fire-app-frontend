@@ -33,7 +33,7 @@ export class MapComponent implements OnInit {
 
   private mapLayers = [];
   private stations: StationMapSymbol[];
-  private selectedStationId = '0';
+  private selectedStationId = 0;
   private selectedDepartmentId = 0;
   private hoveringStation = 0;
 
@@ -121,14 +121,14 @@ export class MapComponent implements OnInit {
            // Sets up the mouse-click event handler
            station.mapMarker.on( 'click', () => {
              this.zone.run(() => {
-               this.setSelectedStation( station.stationId.toString() );
+               this.setSelectedStation( station.stationId );
 
                // Navigates to the station guide if it is the active view
                if ( this.router.url !== 'stations' ) {
                  this.router.navigate( [ 'stations' ] );
-                 this.mapStateService.selectStation( station.stationId.toString() );
+                 this.mapStateService.selectStation( station.stationId );
                } else {
-                 this.mapStateService.selectStation( station.stationId.toString() );
+                 this.mapStateService.selectStation( station.stationId );
                }
              });
            });
@@ -146,7 +146,7 @@ export class MapComponent implements OnInit {
   /**
    * Sets the selected station on the map
    */
-  setSelectedStation( stationId: string ): void {
+  setSelectedStation( stationId: number ): void {
 
     if ( this.selectedStationId !== stationId ) {
 
@@ -155,7 +155,7 @@ export class MapComponent implements OnInit {
       // Updates the map symbology
       for ( const station of this.stations ) {
 
-        if ( station.stationId.toString() === stationId ) {
+        if ( station.stationId === stationId ) {
           station.symbolState = 'SELECTED';
           station.mapMarker.setRadius( 7 );
           station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );

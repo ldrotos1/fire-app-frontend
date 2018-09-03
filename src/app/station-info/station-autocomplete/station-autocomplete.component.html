@@ -1,0 +1,15 @@
+<mat-card id="control-card">
+	<form id="auto-select-form">
+		<mat-form-field id="auto-select-control">
+ 			<input type="text" spellcheck="false" placeholder="Select a fire station" matInput 
+ 			  (ngModelChange)="valueSelected()" 
+ 			  [formControl]="stationSelector" 
+ 			  [matAutocomplete]="auto">
+ 			<mat-autocomplete [displayWith]="stationDisplay" #auto="matAutocomplete">
+			  <mat-option *ngFor="let station of filteredStations | async" [value]="station">
+			    {{ station.stationDesignator }} - {{ station.stationName }} - {{ station.departmentName }}
+			  </mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
+	</form>
+</mat-card>
