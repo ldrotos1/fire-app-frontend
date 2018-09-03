@@ -30,6 +30,7 @@ import { SubHeaderComponent } from './sub-header/sub-header.component';
 import { DepartmentSelectorComponent } from './department-info/department-selector/department-selector.component';
 import { DepartmentViewComponent } from './department-info/department-view/department-view.component';
 import { UnitTypeChartComponent } from './department-info/department-view/unit-type-chart/unit-type-chart.component';
+import { StationListComponent } from './department-info/department-view/station-list/station-list.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { UnitTypeChartComponent } from './department-info/department-view/unit-t
     SubHeaderComponent,
     DepartmentSelectorComponent,
     DepartmentViewComponent,
-    UnitTypeChartComponent
+    UnitTypeChartComponent,
+    StationListComponent
   ],
   imports: [
     BrowserModule,

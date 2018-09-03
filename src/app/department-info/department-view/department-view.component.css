@@ -10,24 +10,6 @@
 	width: 50%;
 }
 
-#table-container {
-	margin-top: 20px;
-  	max-height: 300px;
-  	overflow: auto;
-}
-
-table {
-	width: 100%;
-}
-
-tr.data-row:hover {
- 	background: #F7FE2E;
-}
-
-.row-hover {
-  	background: #F7FE2E;
-}
-
 app-unit-type-chart {
 	display: block;
 	margin-top: 25px;

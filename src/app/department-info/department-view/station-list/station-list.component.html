@@ -1,0 +1,27 @@
+<div id="table-container" class="mat-elevation-z3">
+	<table mat-table [dataSource]="stations">
+		
+		<ng-container matColumnDef="stationDesignator">
+ 			<th mat-header-cell *matHeaderCellDef>Station Number</th>
+  			<td mat-cell *matCellDef="let station">{{ station.stationDesignator }}</td>
+		</ng-container>
+		
+		<ng-container matColumnDef="stationName">
+ 			<th mat-header-cell *matHeaderCellDef>Station Name</th>
+  			<td mat-cell *matCellDef="let station">{{ station.stationName }}</td>
+		</ng-container>
+		
+		<ng-container matColumnDef="unitCount">
+ 			<th mat-header-cell *matHeaderCellDef>Number of Units</th>
+  			<td mat-cell *matCellDef="let station">{{ station.unitCount }}</td>
+		</ng-container>
+		
+		<tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+ 		<tr mat-row class="data-row"
+ 			*matRowDef="let row; columns: displayedColumns;"
+ 			[ngClass]="{ 'row-hover': row.isHighlighted === true }"
+ 			(mouseenter)="mouseEnter(row)" 
+ 			(mouseleave)="mouseLeave(row)">
+ 		</tr>
+	</table>
+</div>
