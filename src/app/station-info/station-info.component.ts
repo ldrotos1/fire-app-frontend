@@ -15,11 +15,23 @@ export class StationInfoComponent implements OnInit {
   private title = 'Fire Station Information';
   private icon = 'store_mall_directory';
   private station: Station;
+  private stations: StationLite[];
   private displayedColumns: string[] = [ 'unitDesignator', 'typeName', 'category' ];
 
   constructor( private stationsService: StationsService ) { }
 
   ngOnInit() {
+    this.getStations();
+  }
+
+   /**
+   * Gets the basic station information that will popoulate the
+   * autocomplete select input.
+   */
+  getStations(): void {
+
+    this.stationsService.getStations()
+      .subscribe( stations => this.stations = stations );
   }
 
   /**

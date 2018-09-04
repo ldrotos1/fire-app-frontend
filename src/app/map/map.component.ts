@@ -125,7 +125,7 @@ export class MapComponent implements OnInit {
 
                // Navigates to the station guide if it is the active view
                if ( this.router.url !== 'stations' ) {
-                 this.router.navigate( [ 'stations' ] );
+                 this.router.navigate( [ '/stations' ] );
                  this.mapStateService.selectStation( station.stationId );
                } else {
                  this.mapStateService.selectStation( station.stationId );

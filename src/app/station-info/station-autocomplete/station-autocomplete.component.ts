@@ -2,8 +2,9 @@ import { Station } from '../../classes/Station';
 import { StationLite } from '../../classes/StationLite';
 import { MapstateService } from '../../services/mapstate.service';
 import { StationsService } from '../../services/stations.service';
-import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -14,28 +15,26 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class StationAutocompleteComponent implements OnInit, OnDestroy {
 
+  @Input() stations: StationLite[];
   @Output() stationSelected = new EventEmitter<number>();
 
-  private stations: StationLite[];
   private selectedStationId = 0;
   private stationSelector: FormControl;
   private filteredStations: Observable<StationLite[]>;
 
   constructor(
     private stationsService: StationsService,
-    private mapStateService: MapstateService ) { }
+    private mapStateService: MapstateService,
+    private route: ActivatedRoute ) { }
 
   ngOnInit() {
-    this.getStations();
+
     this.stationSelector = new FormControl();
-    this.mapStateService.selectedStation.subscribe( stationId => {
+    this.mapStateService.selectedStation
+      .subscribe( stationId => this._setStationValue( stationId ));
 
-      // Selects the station if the stations list has been initialized
-      if ( this.stations !== undefined ) {
-
-        this._setStationValue( stationId );
-      }
-    });
+    this.filteredStations = this.stationSelector.valueChanges
+          .pipe( startWith(''), map( value => this._filter( value ) ) );
   }
 
   ngOnDestroy() {
@@ -52,27 +51,6 @@ export class StationAutocompleteComponent implements OnInit, OnDestroy {
 
     return station ?
       station.stationDesignator + ' - ' + station.stationName + ' - ' + station.departmentName : undefined;
-  }
-
-  /**
-   * Gets the basic station information that will popoulate the
-   * autocomplete select input.
-   */
-  getStations(): void {
-
-    this.stationsService.getStations()
-      .subscribe( stations => {
-        this.stations = stations;
-
-        this.filteredStations = this.stationSelector.valueChanges
-          .pipe( startWith(''), map( value => this._filter( value ) ) );
-
-        // If a station has already been selected, load it into the form
-        if ( this.selectedStationId !== 0 ) {
-
-          this._setStationValue( this.selectedStationId );
-        }
-      });
   }
 
   /**
@@ -106,6 +84,7 @@ export class StationAutocompleteComponent implements OnInit, OnDestroy {
 
         if ( station.stationId === stationId ) {
           this.stationSelector.setValue( station );
+          this.stationSelected.emit( stationId );
           break;
         }
       }

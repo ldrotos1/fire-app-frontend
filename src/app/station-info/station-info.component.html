@@ -1,7 +1,11 @@
 <app-sub-header [title]="title" [icon]="icon"></app-sub-header>
 <div id="info-container">
 
-	<app-station-autocomplete (stationSelected)="onStationSelected($event)"></app-station-autocomplete>
+	<app-station-autocomplete 
+		*ngIf="stations"
+		[stations]="stations" 
+		(stationSelected)="onStationSelected($event)">
+	</app-station-autocomplete>
 	
 	<mat-card *ngIf="station" id="station-info" class="mat-typography">
 		<h2 style="margin-bottom:0px">
