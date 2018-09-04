@@ -16,7 +16,6 @@ export class StationInfoComponent implements OnInit {
   private icon = 'store_mall_directory';
   private station: Station;
   private stations: StationLite[];
-  private displayedColumns: string[] = [ 'unitDesignator', 'typeName', 'category' ];
 
   constructor( private stationsService: StationsService ) { }
 

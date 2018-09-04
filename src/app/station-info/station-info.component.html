@@ -1,41 +1,16 @@
 <app-sub-header [title]="title" [icon]="icon"></app-sub-header>
 <div id="info-container">
-
-	<app-station-autocomplete 
-		*ngIf="stations"
-		[stations]="stations" 
-		(stationSelected)="onStationSelected($event)">
-	</app-station-autocomplete>
 	
-	<mat-card *ngIf="station" id="station-info" class="mat-typography">
-		<h2 style="margin-bottom:0px">
-			Station {{ station.stationDesignator }} - {{ station.stationName }}
-		</h2>
-		<h3 style="margin-bottom:8px">{{ station.departmentName }}</h3>
-		<h4 style="margin-bottom:0px">{{ station.address }}</h4>
-		<h4 style="margin-bottom:10px">
-			{{ station.city }}, {{ station.state }} {{ station.zip }}
-		</h4>
-		<table mat-table [dataSource]="station.apparatus" class="mat-elevation-z2">
-		
-			<ng-container matColumnDef="unitDesignator">
-	 			<th mat-header-cell *matHeaderCellDef>Unit Number</th>
-	  			<td mat-cell *matCellDef="let unit">{{ unit.unitDesignator }}</td>
-			</ng-container>
-			
-			<ng-container matColumnDef="typeName">
-	 			<th mat-header-cell *matHeaderCellDef>Unit Type</th>
-	  			<td mat-cell *matCellDef="let unit">{{ unit.typeName }}</td>
-			</ng-container>
-			
-			<ng-container matColumnDef="category">
-	 			<th mat-header-cell *matHeaderCellDef>Unit Role</th>
-	  			<td mat-cell *matCellDef="let unit">{{ unit.category }}</td>
-			</ng-container>
-			
-			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-		</table>
+	<mat-card *ngIf="stations" class="mat-typography">
+		<app-station-autocomplete 
+			[stations]="stations" 
+			(stationSelected)="onStationSelected($event)">
+		</app-station-autocomplete>
 	</mat-card>
+	
+	<mat-card *ngIf="station" class="mat-typography">
+		<app-station-view [station]="station"></app-station-view>
+	</mat-card>
+
 </div>
 
