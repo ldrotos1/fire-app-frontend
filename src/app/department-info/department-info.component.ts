@@ -48,8 +48,8 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
           const chartDataPoints = new Array<number>();
           chartDataPoints.push( department.unitTypeMap[ 'Fire Suppression' ] );
           chartDataPoints.push( department.unitTypeMap[ 'Aerial Support' ] );
-          chartDataPoints.push( department.unitTypeMap[ 'Rescue' ] );
-          chartDataPoints.push( department.unitTypeMap[ 'Medical' ] );
+          chartDataPoints.push( department.unitTypeMap[ 'Rescue Operations' ] );
+          chartDataPoints.push( department.unitTypeMap[ 'Medical Support' ] );
           chartDataPoints.push( department.unitTypeMap[ 'Command' ] );
           chartDataPoints.push( department.unitTypeMap[ 'Special Incident' ] );
           chartDataPoints.push( department.unitTypeMap[ 'General Support' ] );
@@ -59,8 +59,8 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
           chartDataset.dataLabels = [
             'Fire Suppression',
             'Aerial Support',
-            'Rescue',
-            'Medical',
+            'Rescue Operations',
+            'Medical Support',
             'Command',
             'Special Incident',
             'General Support'
