@@ -33,6 +33,7 @@ import { UnitTypeChartComponent } from './department-info/department-view/unit-t
 import { StationListComponent } from './department-info/department-view/station-list/station-list.component';
 import { StationAutocompleteComponent } from './station-info/station-autocomplete/station-autocomplete.component';
 import { StationViewComponent } from './station-info/station-view/station-view.component';
+import { ApparatusAutocompleteComponent } from './apparatus-info/apparatus-autocomplete/apparatus-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { StationViewComponent } from './station-info/station-view/station-view.c
     UnitTypeChartComponent,
     StationListComponent,
     StationAutocompleteComponent,
-    StationViewComponent
+    StationViewComponent,
+    ApparatusAutocompleteComponent
   ],
   imports: [
     BrowserModule,

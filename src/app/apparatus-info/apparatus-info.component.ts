@@ -1,3 +1,7 @@
+import { ApparatusType } from '../classes/apparatustype';
+import { ApparatusTypeLite } from '../classes/apparatustypelite';
+import { ApparatusService } from '../services/apparatus.service';
+import { MapstateService } from '../services/mapstate.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +11,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApparatusInfoComponent implements OnInit {
 
-  constructor() { }
+  private title = 'Apparatus Type Information';
+  private icon = 'local_taxi';
+  private apparatusType: ApparatusType;
+  private apparatusTypes: ApparatusTypeLite[];
+
+  constructor(
+    private apparatusService: ApparatusService,
+    private mapstateService: MapstateService ) { }
 
   ngOnInit() {
+    this.getApparatusTypes();
   }
 
+  /**
+   * Gets the basic station information that will popoulate the
+   * autocomplete select input.
+   */
+  getApparatusTypes(): void {
+
+    this.apparatusService.getApparatusTypes()
+      .subscribe( apparatusTypes => this.apparatusTypes = apparatusTypes );
+  }
+
+  /**
+   *
+   */
+  onApparatusTypeSelected( typeId: number ): void {
+    console.log( typeId );
+  }
 }
