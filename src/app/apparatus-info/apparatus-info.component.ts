@@ -35,9 +35,16 @@ export class ApparatusInfoComponent implements OnInit {
   }
 
   /**
-   *
+   * Gets the apparatus type information for the specified
+   * apparatus type
    */
   onApparatusTypeSelected( typeId: number ): void {
-    console.log( typeId );
+
+    if ( typeId === 0 ) {
+      this.apparatusType = null;
+    } else {
+      this.apparatusService.getApparatusType( typeId.toString() )
+        .subscribe( apparatusType => this.apparatusType = apparatusType );
+    }
   }
 }

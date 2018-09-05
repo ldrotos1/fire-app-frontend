@@ -7,8 +7,10 @@
 			(apparatusTypeSelected)="onApparatusTypeSelected($event)">
 		</app-apparatus-autocomplete>
 	</mat-card>
-	<mat-card>
-		
+	<mat-card *ngIf="apparatusType" class="mat-typography">
+		<app-apparatus-view
+			[apparatusType]="apparatusType">
+		</app-apparatus-view>
 	</mat-card>
 	
 </div>
