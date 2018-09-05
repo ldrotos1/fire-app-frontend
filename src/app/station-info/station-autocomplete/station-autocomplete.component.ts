@@ -1,10 +1,8 @@
 import { Station } from '../../classes/Station';
 import { StationLite } from '../../classes/StationLite';
 import { MapstateService } from '../../services/mapstate.service';
-import { StationsService } from '../../services/stations.service';
-import { Component, OnInit, OnDestroy, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -13,7 +11,7 @@ import { map, startWith } from 'rxjs/operators';
   templateUrl: './station-autocomplete.component.html',
   styleUrls: ['./station-autocomplete.component.css']
 })
-export class StationAutocompleteComponent implements OnInit, OnDestroy {
+export class StationAutocompleteComponent implements OnInit {
 
   @Input() stations: StationLite[];
   @Output() stationSelected = new EventEmitter<number>();
@@ -22,10 +20,7 @@ export class StationAutocompleteComponent implements OnInit, OnDestroy {
   private stationSelector: FormControl;
   private filteredStations: Observable<StationLite[]>;
 
-  constructor(
-    private stationsService: StationsService,
-    private mapStateService: MapstateService,
-    private route: ActivatedRoute ) { }
+  constructor( private mapStateService: MapstateService ) { }
 
   ngOnInit() {
 
@@ -35,12 +30,6 @@ export class StationAutocompleteComponent implements OnInit, OnDestroy {
 
     this.filteredStations = this.stationSelector.valueChanges
           .pipe( startWith(''), map( value => this._filter( value ) ) );
-  }
-
-  ngOnDestroy() {
-
-    // Clears the station selection
-    this.mapStateService.selectStation( 0 );
   }
 
   /**
@@ -60,12 +49,10 @@ export class StationAutocompleteComponent implements OnInit, OnDestroy {
 
     const stat = this.stationSelector.value;
 
-    // Updates the map state and fires station selected even
+    // Updates the map state and fires the station selected event
     if ( stat.hasOwnProperty( 'stationId' ) ) {
-      this.mapStateService.selectStation( stat[ 'stationId' ] );
       this.stationSelected.emit( stat[ 'stationId' ] );
     } else {
-      this.mapStateService.selectStation( 0 );
       this.stationSelected.emit( 0 );
     }
   }
