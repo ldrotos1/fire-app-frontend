@@ -3,5 +3,9 @@
 	<img mat-card-image [src]="imageBaseUrl + apparatusType.image">
 	<div>
 		<p>{{ apparatusType.description }}</p>
-	</div>	 
+	</div>
+	<app-apparatus-dept-chart 
+		*ngIf="chartData" 
+		[chartData]="chartData">
+	</app-apparatus-dept-chart> 
 </div>

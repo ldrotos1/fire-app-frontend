@@ -1,4 +1,5 @@
 import { ApparatusType } from '../../classes/apparatustype';
+import { ChartData } from '../../classes/chartdata';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -9,6 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ApparatusViewComponent implements OnInit {
 
   @Input() apparatusType: ApparatusType;
+  @Input() chartData: ChartData;
 
   private imageBaseUrl = 'http://novafireapp.s3.amazonaws.com/images/';
 

@@ -35,6 +35,7 @@ import { StationAutocompleteComponent } from './station-info/station-autocomplet
 import { StationViewComponent } from './station-info/station-view/station-view.component';
 import { ApparatusAutocompleteComponent } from './apparatus-info/apparatus-autocomplete/apparatus-autocomplete.component';
 import { ApparatusViewComponent } from './apparatus-info/apparatus-view/apparatus-view.component';
+import { ApparatusDeptChartComponent } from './apparatus-info/apparatus-view/apparatus-dept-chart/apparatus-dept-chart.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ApparatusViewComponent } from './apparatus-info/apparatus-view/apparatu
     StationAutocompleteComponent,
     StationViewComponent,
     ApparatusAutocompleteComponent,
-    ApparatusViewComponent
+    ApparatusViewComponent,
+    ApparatusDeptChartComponent
   ],
   imports: [
     BrowserModule,

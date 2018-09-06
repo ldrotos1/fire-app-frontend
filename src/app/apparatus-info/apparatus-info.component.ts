@@ -1,5 +1,6 @@
 import { ApparatusType } from '../classes/apparatustype';
 import { ApparatusTypeLite } from '../classes/apparatustypelite';
+import { ChartData } from '../classes/chartdata';
 import { ApparatusService } from '../services/apparatus.service';
 import { MapstateService } from '../services/mapstate.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,6 +16,7 @@ export class ApparatusInfoComponent implements OnInit {
   private icon = 'local_taxi';
   private apparatusType: ApparatusType;
   private apparatusTypes: ApparatusTypeLite[];
+  private chartData: ChartData;
 
   constructor(
     private apparatusService: ApparatusService,
@@ -44,7 +46,36 @@ export class ApparatusInfoComponent implements OnInit {
       this.apparatusType = null;
     } else {
       this.apparatusService.getApparatusType( typeId.toString() )
-        .subscribe( apparatusType => this.apparatusType = apparatusType );
+        .subscribe( apparatusType => {
+
+          // Sets the appartus type object
+          this.apparatusType = apparatusType;
+
+          // Creates the chart data object
+          const chartDataPoints = new Array<number>();
+          chartDataPoints.push( apparatusType.departMap[ 4 ] );
+          chartDataPoints.push( apparatusType.departMap[ 1 ] );
+          chartDataPoints.push( apparatusType.departMap[ 3 ] );
+          chartDataPoints.push( apparatusType.departMap[ 7 ] );
+          chartDataPoints.push( apparatusType.departMap[ 5 ] );
+          chartDataPoints.push( apparatusType.departMap[ 2 ] );
+          chartDataPoints.push( apparatusType.departMap[ 6 ] );
+
+          const chartDataset = new ChartData();
+          chartDataset.dataPoints = chartDataPoints;
+          chartDataset.label = apparatusType.typeName + ' Count';
+          chartDataset.dataLabels = [
+            'Fairfax County',
+            'Arlington County',
+            'Alexandria City',
+            'M.W. Airports Authority',
+            'Fort Belvoir',
+            'Fairfax City',
+            'Fort Myer'
+          ];
+
+          this.chartData = chartDataset;
+        });
     }
   }
 }

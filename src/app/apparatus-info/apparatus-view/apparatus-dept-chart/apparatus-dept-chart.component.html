@@ -1,0 +1,9 @@
+<div *ngIf="chartLabels.length > 0" id="chart-container" class="mat-elevation-z3">
+    <canvas baseChart width="400" height="300"
+    	[datasets]="chartDataPoints"
+      	[labels]="chartLabels"
+      	[options]="chartOptions"
+      	[legend]="chartLegend"
+      	[chartType]="chartType">
+	</canvas>
+</div>
