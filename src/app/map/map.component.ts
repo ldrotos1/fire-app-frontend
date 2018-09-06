@@ -33,7 +33,6 @@ export class MapComponent implements OnInit {
 
   private mapLayers = [];
   private stations: StationMapSymbol[];
-  private selectedStationId = 0;
   private selectedStationIds = [];
   private hoveringStation = 0;
 
@@ -46,10 +45,6 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.getMapStations();
-
-    this.mapStateService.selectedStation.subscribe( stationId => {
-      this.setSelectedStation( stationId );
-    });
 
     this.mapStateService.selectedStations.subscribe( stationIds => {
       this.setSelectedStations( stationIds );
@@ -121,14 +116,12 @@ export class MapComponent implements OnInit {
            // Sets up the mouse-click event handler
            station.mapMarker.on( 'click', () => {
              this.zone.run(() => {
-               this.setSelectedStation( station.stationId );
 
-               // Navigates to the station guide if it is the active view
-               if ( this.router.url !== 'stations' ) {
-                 this.router.navigate( [ '/stations' ] );
-                 this.mapStateService.selectStation( station.stationId );
-               } else {
-                 this.mapStateService.selectStation( station.stationId );
+               // Gets the station information
+               if ( this.router.url === '/stations' ) {
+                 const stationIds = [ station.stationId ];
+                 this.setSelectedStations( stationIds );
+                 this.mapStateService.selectStations( stationIds );
                }
              });
            });
@@ -144,31 +137,6 @@ export class MapComponent implements OnInit {
   }
 
   /**
-   * Sets the selected station on the map
-   */
-  setSelectedStation( stationId: number ): void {
-
-    if ( this.selectedStationId !== stationId ) {
-
-      this.selectedStationId = stationId;
-
-      // Updates the map symbology
-      for ( const station of this.stations ) {
-
-        if ( station.stationId === stationId ) {
-          station.symbolState = 'SELECTED';
-          station.mapMarker.setRadius( 7 );
-          station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
-        } else {
-          station.symbolState = 'DEFAULT';
-          station.mapMarker.setRadius( 4 );
-          station.mapMarker.setStyle( this.symbologyService.getStationSym() );
-        }
-      }
-    }
-  }
-
-  /**
    * Selects the stations on the map that whose station
    * IDs are in the collection of IDs
    */
@@ -176,23 +144,49 @@ export class MapComponent implements OnInit {
 
     this.selectedStationIds = stationIds;
 
-    if ( this.stations && stationIds.length > 0 ) {
+    if ( this.stations ) {
+      console.log("break");
+      if ( stationIds.length > 0 ) {
 
-      // Updates the map symbology
-      for ( const station of this.stations ) {
+        if ( this.router.url === '/stations' ) {
 
-        if ( stationIds.includes( station.stationId ) ) {
+          // Updates the map symbology for the station info view
+          for ( const station of this.stations ) {
+            if ( station.stationId === stationIds[0] ) {
+              station.symbolState = 'SELECTED';
+              station.mapMarker.setRadius( 7 );
+              station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
+            } else {
+              station.symbolState = 'DEFAULT';
+              station.mapMarker.setRadius( 4 );
+              station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+            }
+          }
+        } else {
+
+          // Updates the map symbology for the department and apparatus info views
+          for ( const station of this.stations ) {
+            if ( stationIds.includes( station.stationId ) || stationIds[ 0 ] === 0 ) {
+              station.symbolState = 'DEFAULT';
+              station.mapMarker.setRadius( 4 );
+              station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+            } else {
+              station.symbolState = 'GREYOUT';
+              station.mapMarker.setRadius( 4 );
+              station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
+            }
+          }
+        }
+      } else {
+
+        // Sets all station symbols to the default
+        for ( const station of this.stations ) {
           station.symbolState = 'DEFAULT';
           station.mapMarker.setRadius( 4 );
           station.mapMarker.setStyle( this.symbologyService.getStationSym() );
-        } else {
-          station.symbolState = 'GREYOUT';
-          station.mapMarker.setRadius( 4 );
-          station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
         }
       }
     }
-
   }
 
   /**

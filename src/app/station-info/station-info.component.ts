@@ -33,7 +33,7 @@ export class StationInfoComponent implements OnInit, OnDestroy {
    * Clears the station selection on the map
    */
   ngOnDestroy() {
-    this.mapStateService.selectStation( 0 );
+    this.mapStateService.selectStations( [] );
   }
 
   /**
@@ -52,7 +52,8 @@ export class StationInfoComponent implements OnInit, OnDestroy {
    */
   onStationSelected( stationId ) {
 
-    this.mapStateService.selectStation( stationId );
+    const stationIds = [ stationId ];
+    this.mapStateService.selectStations( stationIds );
 
     if ( stationId === 0) {
       this.station = null;

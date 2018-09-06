@@ -23,10 +23,9 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
+  // Clears the selected stations on the map
   ngOnDestroy() {
-
-    // Clears the selected departments on the map
-    this.mapstateService.selectStations( [] );
+    this.mapstateService.selectStations( [0] );
   }
 
   /**
@@ -69,7 +68,7 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
           this.department = department;
           this.chartData = chartDataset;
 
-          // Updates the map state
+          // Updates the selected stations on the map
           const stationIds = Array<number>();
           for ( const station of this.department.stations ) {
             stationIds.push( station.stationId );

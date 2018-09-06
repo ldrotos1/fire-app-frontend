@@ -3,14 +3,14 @@ import { ApparatusTypeLite } from '../classes/apparatustypelite';
 import { ChartData } from '../classes/chartdata';
 import { ApparatusService } from '../services/apparatus.service';
 import { MapstateService } from '../services/mapstate.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-apparatus-info',
   templateUrl: './apparatus-info.component.html',
   styleUrls: ['./apparatus-info.component.css']
 })
-export class ApparatusInfoComponent implements OnInit {
+export class ApparatusInfoComponent implements OnInit, OnDestroy {
 
   private title = 'Apparatus Type Information';
   private icon = 'local_taxi';
@@ -22,8 +22,14 @@ export class ApparatusInfoComponent implements OnInit {
     private apparatusService: ApparatusService,
     private mapstateService: MapstateService ) { }
 
+  // Gets the apparatus types
   ngOnInit() {
     this.getApparatusTypes();
+  }
+
+  // Clears the selected stations on the map
+  ngOnDestroy() {
+    this.mapstateService.selectStations( [0] );
   }
 
   /**
@@ -50,6 +56,9 @@ export class ApparatusInfoComponent implements OnInit {
 
           // Sets the appartus type object
           this.apparatusType = apparatusType;
+
+          // Updates the selected stations on the map
+          this.mapstateService.selectStations( this.apparatusType.stationList );
 
           // Creates the chart data object
           const chartDataPoints = new Array<number>();

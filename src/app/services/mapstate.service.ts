@@ -6,25 +6,15 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MapstateService {
 
-  private stationSelection = new BehaviorSubject( 0 );
   private stationsSelection = new BehaviorSubject( [] );
   private rowHoverStation = new BehaviorSubject( 0 );
   private hoverStationSym = new BehaviorSubject( 0 );
 
-  selectedStation = this.stationSelection.asObservable();
   selectedStations = this.stationsSelection.asObservable();
   currentRowHoverStation = this.rowHoverStation.asObservable();
   currentHoverStationSym = this.hoverStationSym.asObservable();
 
   constructor() { }
-
-  /**
-   * Updates the selected station
-   */
-  selectStation( stationId: number ): void {
-
-    this.stationSelection.next( stationId );
-  }
 
   /**
    * Updates the selected stations
