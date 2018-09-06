@@ -7,12 +7,12 @@ import { BehaviorSubject } from 'rxjs';
 export class MapstateService {
 
   private stationSelection = new BehaviorSubject( 0 );
-  private departmentSelection = new BehaviorSubject( 0 );
+  private stationsSelection = new BehaviorSubject( [] );
   private rowHoverStation = new BehaviorSubject( 0 );
   private hoverStationSym = new BehaviorSubject( 0 );
 
   selectedStation = this.stationSelection.asObservable();
-  selectedDepartment = this.departmentSelection.asObservable();
+  selectedStations = this.stationsSelection.asObservable();
   currentRowHoverStation = this.rowHoverStation.asObservable();
   currentHoverStationSym = this.hoverStationSym.asObservable();
 
@@ -27,11 +27,11 @@ export class MapstateService {
   }
 
   /**
-   * Updates the selected department
+   * Updates the selected stations
    */
-  selectDepartment( departmentId: number ): void {
+  selectStations( stationIds: Array<number> ): void {
 
-    this.departmentSelection.next( departmentId );
+    this.stationsSelection.next( stationIds );
   }
 
   /**

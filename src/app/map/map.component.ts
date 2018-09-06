@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
   private mapLayers = [];
   private stations: StationMapSymbol[];
   private selectedStationId = 0;
-  private selectedDepartmentId = 0;
+  private selectedStationIds = [];
   private hoveringStation = 0;
 
   constructor(
@@ -51,8 +51,8 @@ export class MapComponent implements OnInit {
       this.setSelectedStation( stationId );
     });
 
-    this.mapStateService.selectedDepartment.subscribe( departmentId => {
-      this.setSelectedDepartment( departmentId );
+    this.mapStateService.selectedStations.subscribe( stationIds => {
+      this.setSelectedStations( stationIds );
     });
 
     this.mapStateService.currentRowHoverStation.subscribe( stationId => {
@@ -169,32 +169,30 @@ export class MapComponent implements OnInit {
   }
 
   /**
-   * Selects the stations on the map that belong to
-   * the specified fire department
+   * Selects the stations on the map that whose station
+   * IDs are in the collection of IDs
    */
-  setSelectedDepartment( departmentId: number ): void {
+  setSelectedStations( stationIds: Array<number> ): void {
 
-    if ( this.selectedDepartmentId !== departmentId ) {
+    this.selectedStationIds = stationIds;
 
-      this.selectedDepartmentId = departmentId;
+    if ( this.stations && stationIds.length > 0 ) {
 
-      if ( departmentId !== 0 ) {
+      // Updates the map symbology
+      for ( const station of this.stations ) {
 
-        // Updates the map symbology
-        for ( const station of this.stations ) {
-
-          if ( station.departmentId === departmentId ) {
-            station.symbolState = 'DEFAULT';
-            station.mapMarker.setRadius( 4 );
-            station.mapMarker.setStyle( this.symbologyService.getStationSym() );
-          } else {
-            station.symbolState = 'GREYOUT';
-            station.mapMarker.setRadius( 4 );
-            station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
-          }
+        if ( stationIds.includes( station.stationId ) ) {
+          station.symbolState = 'DEFAULT';
+          station.mapMarker.setRadius( 4 );
+          station.mapMarker.setStyle( this.symbologyService.getStationSym() );
+        } else {
+          station.symbolState = 'GREYOUT';
+          station.mapMarker.setRadius( 4 );
+          station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
         }
       }
     }
+
   }
 
   /**
@@ -210,7 +208,7 @@ export class MapComponent implements OnInit {
           station.symbolState = 'SELECTED';
           station.mapMarker.setRadius( 7 );
           station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
-        } else if ( station.departmentId === this.selectedDepartmentId ) {
+        } else if ( this.selectedStationIds.includes( station.stationId ) ) {
           station.symbolState = 'DEFAULT';
           station.mapMarker.setRadius( 4 );
           station.mapMarker.setStyle( this.symbologyService.getStationSym() );
