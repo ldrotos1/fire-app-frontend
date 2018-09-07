@@ -117,8 +117,9 @@ export class MapComponent implements OnInit {
            station.mapMarker.on( 'click', () => {
              this.zone.run(() => {
 
-               // Gets the station information
                if ( this.router.url === '/stations' ) {
+
+                 // Displays the station information in the station info pane
                  const stationIds = [ station.stationId ];
                  this.setSelectedStations( stationIds );
                  this.mapStateService.selectStations( stationIds );
@@ -145,7 +146,7 @@ export class MapComponent implements OnInit {
     this.selectedStationIds = stationIds;
 
     if ( this.stations ) {
-      console.log("break");
+
       if ( stationIds.length > 0 ) {
 
         if ( this.router.url === '/stations' ) {

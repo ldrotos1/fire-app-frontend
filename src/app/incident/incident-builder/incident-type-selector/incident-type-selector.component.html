@@ -1,0 +1,9 @@
+<mat-card>
+	<mat-form-field>
+	  <mat-select placeholder="Select an emergency incident type" (selectionChange)="selectionChange($event)">
+	    <mat-option *ngFor="let incident of incidentTypes" [value]="incident">
+	      {{ incident.typeName }}
+	    </mat-option>
+	  </mat-select>
+	</mat-form-field>
+</mat-card>

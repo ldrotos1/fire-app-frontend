@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IncidentComponent implements OnInit {
 
+  private title = 'Incident Simulator';
+  private icon = 'notifications_active';
+
   constructor() { }
 
   ngOnInit() {
