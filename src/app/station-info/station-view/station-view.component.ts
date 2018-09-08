@@ -1,4 +1,4 @@
-import { Station } from '../../classes/Station';
+import { Station } from '../../classes/station/Station';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

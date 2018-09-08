@@ -1,4 +1,4 @@
-import { DepartmentLite } from '../../classes/departmentlite';
+import { DepartmentLite } from '../../classes/department/departmentlite';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DepartmentService } from '../../services/department.service';
 import { Observable } from 'rxjs';

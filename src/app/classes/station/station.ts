@@ -1,4 +1,4 @@
-import { Apparatus } from './apparatus';
+import { Apparatus } from '../apparatus/apparatus';
 
 export class Station {
   stationId: number;

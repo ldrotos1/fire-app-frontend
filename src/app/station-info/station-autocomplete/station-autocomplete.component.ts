@@ -1,5 +1,5 @@
-import { Station } from '../../classes/Station';
-import { StationLite } from '../../classes/StationLite';
+import { Station } from '../../classes/station/Station';
+import { StationLite } from '../../classes/station/StationLite';
 import { MapstateService } from '../../services/mapstate.service';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';

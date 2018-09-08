@@ -1,6 +1,6 @@
-import { ChartData } from '../../classes/chartdata';
+import { ChartData } from '../../classes/charts/chartdata';
 import { Component, OnInit, Input, NgZone } from '@angular/core';
-import { Department } from '../../classes/department';
+import { Department } from '../../classes/department/department';
 
 @Component({
   selector: 'app-department-view',

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StationLite } from '../classes/StationLite';
-import { Station } from '../classes/Station';
-import { Apparatus } from '../classes/apparatus';
+import { StationLite } from '../classes/station/StationLite';
+import { Station } from '../classes/station/Station';
+import { Apparatus } from '../classes/apparatus/apparatus';
 import { MapstateService } from '../services/mapstate.service';
 import { StationsService } from '../services/stations.service';
 import { Observable } from 'rxjs';

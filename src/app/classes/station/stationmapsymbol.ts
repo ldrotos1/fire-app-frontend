@@ -1,4 +1,5 @@
-import { StationLite } from './StationLite';
+
+import { StationLite } from './stationlite';
 import * as L from 'leaflet';
 
 export class StationMapSymbol extends StationLite {

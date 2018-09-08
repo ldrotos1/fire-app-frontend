@@ -1,4 +1,4 @@
-import { ApparatusTypeLite } from '../../classes/apparatustypelite';
+import { ApparatusTypeLite } from '../../classes/apparatus/apparatustypelite';
 import { MapstateService } from '../../services/mapstate.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';

@@ -1,5 +1,5 @@
-import { ApparatusType } from '../../classes/apparatustype';
-import { ChartData } from '../../classes/chartdata';
+import { ApparatusType } from '../../classes/apparatus/apparatustype';
+import { ChartData } from '../../classes/charts/chartdata';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

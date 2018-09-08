@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { StationLite } from '../classes/StationLite';
-import { Station } from '../classes/Station';
-import { StationMapSymbol } from '../classes/stationmapsymbol';
+import { StationLite } from '../classes/station/StationLite';
+import { Station } from '../classes/station/Station';
+import { StationMapSymbol } from '../classes/station/stationmapsymbol';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable({

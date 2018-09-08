@@ -1,4 +1,4 @@
-import { ChartData } from '../../../classes/chartdata';
+import { ChartData } from '../../../classes/charts/chartdata';
 import { Component, OnInit, Input } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
 

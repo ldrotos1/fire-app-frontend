@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { StationsService } from '../services/stations.service';
-import { StationMapSymbol } from '../classes/StationMapSymbol';
+import { StationMapSymbol } from '../classes/station/StationMapSymbol';
 import { MapstateService } from '../services/mapstate.service';
 import { StationSymbologyService } from '../services/station-symbology.service';
 import * as L from 'leaflet';

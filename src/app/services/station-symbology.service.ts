@@ -1,5 +1,5 @@
-import { StationLite } from '../classes/StationLite';
-import { StationMapSymbol } from '../classes/stationmapsymbol';
+import { StationLite } from '../classes/station/StationLite';
+import { StationMapSymbol } from '../classes/station/stationmapsymbol';
 import { MapstateService } from './mapstate.service';
 import { SymbologyService } from './symbology.service';
 import { Injectable, NgZone } from '@angular/core';

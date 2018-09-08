@@ -1,4 +1,4 @@
-import { DepartmentStation } from '../../../classes/departmentstation';
+import { DepartmentStation } from '../../../classes/department/departmentstation';
 import { Component, OnInit, NgZone, Input } from '@angular/core';
 import { MapstateService } from '../../../services/mapstate.service';
 

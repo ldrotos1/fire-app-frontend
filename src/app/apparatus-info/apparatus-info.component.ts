@@ -1,6 +1,6 @@
-import { ApparatusType } from '../classes/apparatustype';
-import { ApparatusTypeLite } from '../classes/apparatustypelite';
-import { ChartData } from '../classes/chartdata';
+import { ApparatusType } from '../classes/apparatus/apparatustype';
+import { ApparatusTypeLite } from '../classes/apparatus/apparatustypelite';
+import { ChartData } from '../classes/charts/chartdata';
 import { ApparatusService } from '../services/apparatus.service';
 import { MapstateService } from '../services/mapstate.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';

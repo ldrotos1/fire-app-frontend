@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Department } from '../classes/department';
+import { Department } from '../classes/department/department';
 import { DepartmentService } from '../services/department.service';
 import { MapstateService } from '../services/mapstate.service';
-import { ChartData } from '../classes/chartdata';
+import { ChartData } from '../classes/charts/chartdata';
 
 @Component({
   selector: 'app-department-info',

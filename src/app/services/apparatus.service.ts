@@ -1,5 +1,5 @@
-import { ApparatusType } from '../classes/apparatustype';
-import { ApparatusTypeLite } from '../classes/apparatustypelite';
+import { ApparatusType } from '../classes/apparatus/apparatustype';
+import { ApparatusTypeLite } from '../classes/apparatus/apparatustypelite';
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

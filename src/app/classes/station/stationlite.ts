@@ -8,7 +8,7 @@ export class StationLite {
   departmentId: number;
   departmentName: string;
   deptAbbreviation: string;
-  
+
   constructor( station: StationLite ) {
     this.stationId = station.stationId;
     this.stationNumber = station.stationNumber;
@@ -18,6 +18,6 @@ export class StationLite {
     this.lon = station.lon;
     this.departmentId = station.departmentId;
     this.departmentName = station.departmentName;
-    this.deptAbbreviation = station.deptAbbreviation; 
+    this.deptAbbreviation = station.deptAbbreviation;
   }
 }

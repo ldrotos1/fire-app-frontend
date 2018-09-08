@@ -1,5 +1,5 @@
-import { Department } from '../classes/department';
-import { DepartmentLite } from '../classes/departmentlite';
+import { Department } from '../classes/department/department';
+import { DepartmentLite } from '../classes/department/departmentlite';
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
