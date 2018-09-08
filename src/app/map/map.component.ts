@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { StationsService } from '../services/stations.service';
 import { StationMapSymbol } from '../classes/StationMapSymbol';
 import { MapstateService } from '../services/mapstate.service';
-import { SymbologyService } from '../services/symbology.service';
+import { StationSymbologyService } from '../services/station-symbology.service';
 import * as L from 'leaflet';
 
 @NgModule({
@@ -33,15 +33,15 @@ export class MapComponent implements OnInit {
 
   private mapLayers = [];
   private stations: StationMapSymbol[];
-  private selectedStationIds = [];
-  private hoveringStation = 0;
 
   constructor(
     private stationsService: StationsService,
     private mapStateService: MapstateService,
-    private symbologyService: SymbologyService,
-    private router: Router,
-    private zone: NgZone ) { }
+    private stationSymService: StationSymbologyService,
+    private router: Router ) {
+
+      this.stations = new Array<StationMapSymbol>();
+  }
 
   ngOnInit() {
     this.getMapStations();
@@ -60,81 +60,17 @@ export class MapComponent implements OnInit {
    */
   getMapStations(): void {
 
-    this.stationsService.getMapStations()
-      .subscribe( stations => {
+    this.stationsService.getStations().subscribe( stations => {
+      for ( const station of stations ) {
 
-         this.stations = stations;
-         this.stations.map( station => {
+        // Creates the station marker
+        const mapStation = this.stationSymService.createStationMapSym( station );
 
-           // Creates the station marker
-           station.symbolState = 'DEFAULT';
-           station.mapMarker = L.circleMarker( L.latLng( station.lat, station.lon ) );
-           station.mapMarker.setRadius( 4 );
-           station.mapMarker.setStyle( this.symbologyService.getStationSym() );
-
-           // Sets up the mouse-over event handler
-           station.mapMarker.on( 'mouseover', () => {
-
-             station.mapMarker.setRadius( 7 );
-
-             switch ( station.symbolState ) {
-               case 'DEFAULT':
-                 station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
-                 break;
-               case 'SELECTED':
-                 station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
-                 break;
-               case 'GREYOUT':
-                 station.mapMarker.setStyle( this.symbologyService.getGreyOutStationHoverSym() );
-                 break;
-             }
-
-             this.mapStateService.setHoverStationSym( station.stationId );
-           });
-
-           // Sets up the mouse-out event handler
-           station.mapMarker.on( 'mouseout', () => {
-
-             switch ( station.symbolState ) {
-               case 'DEFAULT':
-                 station.mapMarker.setRadius( 4 );
-                 station.mapMarker.setStyle( this.symbologyService.getStationSym() );
-                 break;
-               case 'SELECTED':
-                 station.mapMarker.setRadius( 7 );
-                 station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
-                 break;
-               case 'GREYOUT':
-                 station.mapMarker.setRadius( 4 );
-                 station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
-                 break;
-             }
-
-             this.mapStateService.setHoverStationSym( 0 );
-           });
-
-           // Sets up the mouse-click event handler
-           station.mapMarker.on( 'click', () => {
-             this.zone.run(() => {
-
-               if ( this.router.url === '/stations' ) {
-
-                 // Displays the station information in the station info pane
-                 const stationIds = [ station.stationId ];
-                 this.setSelectedStations( stationIds );
-                 this.mapStateService.selectStations( stationIds );
-               }
-             });
-           });
-
-           // Adds the station name tooltip
-           const tooltipTxt = station.stationDesignator + ' - ' + station.stationName + ' / ' + station.deptAbbreviation;
-           station.mapMarker.bindTooltip( tooltipTxt, { offset: new L.Point( 9, 0 ), direction: 'right' });
-
-           // Adds the station marker to the map
-           this.mapLayers.push( station.mapMarker );
-         });
-      });
+        // Adds the station marker to the map
+        this.stations.push( mapStation );
+        this.mapLayers.push( mapStation.mapMarker );
+      }
+    });
   }
 
   /**
@@ -142,77 +78,25 @@ export class MapComponent implements OnInit {
    * IDs are in the collection of IDs
    */
   setSelectedStations( stationIds: Array<number> ): void {
-
-    this.selectedStationIds = stationIds;
-
     if ( this.stations ) {
 
-      if ( stationIds.length > 0 ) {
-
-        if ( this.router.url === '/stations' ) {
-
-          // Updates the map symbology for the station info view
-          for ( const station of this.stations ) {
-            if ( station.stationId === stationIds[0] ) {
-              station.symbolState = 'SELECTED';
-              station.mapMarker.setRadius( 7 );
-              station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
-            } else {
-              station.symbolState = 'DEFAULT';
-              station.mapMarker.setRadius( 4 );
-              station.mapMarker.setStyle( this.symbologyService.getStationSym() );
-            }
-          }
-        } else {
-
-          // Updates the map symbology for the department and apparatus info views
-          for ( const station of this.stations ) {
-            if ( stationIds.includes( station.stationId ) || stationIds[ 0 ] === 0 ) {
-              station.symbolState = 'DEFAULT';
-              station.mapMarker.setRadius( 4 );
-              station.mapMarker.setStyle( this.symbologyService.getStationSym() );
-            } else {
-              station.symbolState = 'GREYOUT';
-              station.mapMarker.setRadius( 4 );
-              station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
-            }
-          }
-        }
+      if ( stationIds.length === 0 ) {
+        this.stationSymService.clearStationSelections( this.stations );
+      } else if ( this.router.url === '/stations' ) {
+        this.stationSymService.singleStationSelction( stationIds[0], this.stations );
       } else {
-
-        // Sets all station symbols to the default
-        for ( const station of this.stations ) {
-          station.symbolState = 'DEFAULT';
-          station.mapMarker.setRadius( 4 );
-          station.mapMarker.setStyle( this.symbologyService.getStationSym() );
-        }
+        this.stationSymService.groupStationSelection( stationIds, this.stations );
       }
     }
   }
 
   /**
-   * Sets the station that should be symbolized as being hovered over
+   * Sets the station that should be symbolized as being
+   * hovered over
    */
   setRowHoverStation( stationId: number ): void {
-
-    if ( this.stations !== undefined ) {
-
-      for ( const station of this.stations ) {
-
-        if ( station.stationId === stationId ) {
-          station.symbolState = 'SELECTED';
-          station.mapMarker.setRadius( 7 );
-          station.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
-        } else if ( this.selectedStationIds.includes( station.stationId ) ) {
-          station.symbolState = 'DEFAULT';
-          station.mapMarker.setRadius( 4 );
-          station.mapMarker.setStyle( this.symbologyService.getStationSym() );
-        } else {
-          station.symbolState = 'GREYOUT';
-          station.mapMarker.setRadius( 4 );
-          station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
-        }
-      }
+    if ( this.stations ) {
+      this.stationSymService.highlightSingleStation( stationId, this.stations );
     }
   }
 }

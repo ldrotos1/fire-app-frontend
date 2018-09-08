@@ -29,7 +29,7 @@ export class ApparatusInfoComponent implements OnInit, OnDestroy {
 
   // Clears the selected stations on the map
   ngOnDestroy() {
-    this.mapstateService.selectStations( [0] );
+    this.mapstateService.selectStations( [] );
   }
 
   /**
