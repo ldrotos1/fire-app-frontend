@@ -1,1 +1,5 @@
-<div id="map"  leaflet [leafletOptions]="mapOptions" [leafletLayers]="mapLayers"></div>
+<div id="map" leaflet 
+	[leafletOptions]="mapOptions" 
+	[leafletLayers]="mapLayers"
+	(leafletClick)="mapClicked($event)">
+</div>

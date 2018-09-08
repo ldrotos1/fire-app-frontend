@@ -78,6 +78,13 @@ export class MapComponent implements OnInit {
   }
 
   /**
+   * Publishes the map click event location.
+   */
+  mapClicked( event ): void {
+    this.mapStateService.setMapClickPosition( event.latlng );
+  }
+
+  /**
    * Selects the stations on the map that whose station
    * IDs are in the collection of IDs
    */
