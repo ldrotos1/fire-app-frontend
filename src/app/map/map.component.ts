@@ -26,9 +26,13 @@ export class MapComponent implements OnInit {
   private baseMapAccess = this.baseMapUrl + '?access_token=' + this.baseMapToken;
 
   private mapOptions = {
-    layers: [ L.tileLayer( this.baseMapAccess, { maxZoom: 18, attribution: '...' })],
+    layers: [ L.tileLayer( this.baseMapAccess, {})],
     zoom: 10,
-    center: L.latLng(38.8613, -77.2457)
+    minZoom: 9,
+    center: L.latLng(38.8613, -77.3457),
+    maxBounds: [[38.574669, -77.755987],
+                [39.104280, -76.704703]],
+    bounceAtZoomLimits: false
   };
 
   private mapLayers = [];
