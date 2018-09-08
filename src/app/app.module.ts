@@ -15,6 +15,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -79,6 +80,7 @@ import { IncidentTypeSelectorComponent } from './incident/incident-builder/incid
     MatSelectModule,
     MatCardModule,
     MatTableModule,
+    MatTooltipModule,
     ChartsModule,
     AppRoutingModule
   ],

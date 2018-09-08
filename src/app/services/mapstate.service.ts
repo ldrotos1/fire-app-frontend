@@ -10,12 +10,12 @@ export class MapstateService {
   private stationsSelection = new BehaviorSubject( [] );
   private rowHoverStation = new BehaviorSubject( 0 );
   private hoverStationSym = new BehaviorSubject( 0 );
-  private mapClickPosition = new Subject();
+  private mapClickPosition = new Subject<L.LatLng>();
 
-  selectedStations = this.stationsSelection.asObservable();
-  currentRowHoverStation = this.rowHoverStation.asObservable();
-  currentHoverStationSym = this.hoverStationSym.asObservable();
-  getMapClickPosition = this.mapClickPosition.asObservable();
+  watchSelectedStations = this.stationsSelection.asObservable();
+  watchRowHoverStation = this.rowHoverStation.asObservable();
+  watchHoverStationSym = this.hoverStationSym.asObservable();
+  watchMapClickPosition = this.mapClickPosition.asObservable();
 
   constructor() { }
 
@@ -51,7 +51,7 @@ export class MapstateService {
    * click location
    */
   setMapClickPosition( coordinate: L.LatLng ) {
-    console.log(coordinate);
+
     this.mapClickPosition.next( coordinate );
   }
 }

@@ -18,6 +18,23 @@ export class StationSymbologyService {
       private zone: NgZone ) {}
 
   /**
+   * Creates and returns an incident marker tied to
+   * the specified location
+   */
+  createIncidentMarker( coord: L.LatLng ): L.Marker {
+
+    const incidentMarker = new L.Marker( coord , {
+      icon: new L.Icon({
+        iconSize: [ 26, 26 ],
+        iconAnchor: [ 13, 13 ],
+        iconUrl: 'assets/images/incident_icon.png'
+      })
+    });
+
+    return incidentMarker;
+  }
+
+  /**
    * Injests a station object and creates and returns the
    * corresponding station map marker symbol.
    */

@@ -16,7 +16,7 @@ export class StationListComponent implements OnInit {
   constructor( private mapstateService: MapstateService,  private zone: NgZone ) { }
 
   ngOnInit() {
-    this.mapstateService.currentHoverStationSym.subscribe( stationId => {
+    this.mapstateService.watchHoverStationSym.subscribe( stationId => {
       this.updateTableRowSym( stationId );
     });
   }

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { StationsService } from '../services/stations.service';
 import { StationMapSymbol } from '../classes/station/StationMapSymbol';
+import { CrosshairViewService } from '../services/crosshair-view.service';
 import { MapstateService } from '../services/mapstate.service';
 import { StationSymbologyService } from '../services/station-symbology.service';
 import * as L from 'leaflet';
@@ -24,6 +25,7 @@ export class MapComponent implements OnInit {
   private baseMapUrl = 'https://api.mapbox.com/styles/v1/ldrotos/cjk7ejowm5htm2rl579r0etey/tiles/256/{z}/{x}/{y}';
   private baseMapToken = 'pk.eyJ1IjoibGRyb3RvcyIsImEiOiJwQXgwZ2ZVIn0.pPrIMXZdwniJcp79DNpg9g';
   private baseMapAccess = this.baseMapUrl + '?access_token=' + this.baseMapToken;
+  private isCrosshairActive = false;
 
   private mapOptions = {
     layers: [ L.tileLayer( this.baseMapAccess, {})],
@@ -37,11 +39,13 @@ export class MapComponent implements OnInit {
 
   private mapLayers = [];
   private stations: StationMapSymbol[];
+  private incidentMarker: L.Marker;
 
   constructor(
     private stationsService: StationsService,
     private mapStateService: MapstateService,
     private stationSymService: StationSymbologyService,
+    private crosshairService: CrosshairViewService,
     private router: Router ) {
 
       this.stations = new Array<StationMapSymbol>();
@@ -50,12 +54,26 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.getMapStations();
 
-    this.mapStateService.selectedStations.subscribe( stationIds => {
+    // Watches for changes in the station selection set
+    this.mapStateService.watchSelectedStations.subscribe( stationIds => {
       this.setSelectedStations( stationIds );
     });
 
-    this.mapStateService.currentRowHoverStation.subscribe( stationId => {
+    // Watches for changes in the station row hover state
+    this.mapStateService.watchRowHoverStation.subscribe( stationId => {
       this.setRowHoverStation( stationId );
+    });
+
+    // Watches for changes in the crosshair cursor state
+    this.crosshairService.watchCrosshairState.subscribe(
+      state => { this.isCrosshairActive = state; } );
+
+    // Clears the incident loaction from the map when the route changes
+    this.router.events.subscribe( event => {
+
+      if ( event instanceof NavigationStart ) {
+          this.clearIncidentLocation();
+      }
     });
   }
 
@@ -78,10 +96,30 @@ export class MapComponent implements OnInit {
   }
 
   /**
-   * Publishes the map click event location.
+   * Publishes the map click event location and creates the
+   * incident location marker.
    */
   mapClicked( event ): void {
+
+    // Creates the incident marker if the selection tool is active
+    if ( this.isCrosshairActive === true ) {
+
+      this.clearIncidentLocation();
+      this.incidentMarker = this.stationSymService.createIncidentMarker( event.latlng );
+      this.mapLayers.push( this.incidentMarker );
+    }
+
+    // Publishes the incident location to the map click service
     this.mapStateService.setMapClickPosition( event.latlng );
+  }
+
+  /**
+   * Clears the incident location from the map
+   */
+  clearIncidentLocation(): void {
+    if ( this.incidentMarker !== undefined ) {
+        this.incidentMarker.remove();
+      }
   }
 
   /**

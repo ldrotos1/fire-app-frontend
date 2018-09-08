@@ -25,7 +25,7 @@ export class StationAutocompleteComponent implements OnInit {
   ngOnInit() {
 
     this.stationSelector = new FormControl();
-    this.mapStateService.selectedStations
+    this.mapStateService.watchSelectedStations
       .subscribe( stationIds => this._setStationValue( stationIds[0] ));
 
     this.filteredStations = this.stationSelector.valueChanges

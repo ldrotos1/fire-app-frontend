@@ -1,1 +1,17 @@
-<app-incident-type-selector (incidentSelected)="incidentTypeSelected($event)"></app-incident-type-selector>
+<app-incident-type-selector 
+	(incidentSelected)="incidentTypeSelected($event)">
+</app-incident-type-selector>
+<mat-card *ngIf="incidentType">
+	<div id="incident-location-row">
+		<mat-form-field>
+			<mat-label>Incident Location</mat-label>
+			<input matInput [readonly]="true" [value]="getIncidentLoc()">
+		</mat-form-field>
+		<button mat-mini-fab 
+			matTooltip="Select incident location on the map" 
+			color="primary"
+			(click)="selectLocation($event)">
+    		<mat-icon aria-label="Select incident location">gps_fixed</mat-icon>
+  		</button>
+	</div>
+</mat-card>

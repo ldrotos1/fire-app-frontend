@@ -1,5 +1,6 @@
 <div id="map" leaflet 
 	[leafletOptions]="mapOptions" 
 	[leafletLayers]="mapLayers"
+	[class.showCrosshair]="isCrosshairActive"
 	(leafletClick)="mapClicked($event)">
 </div>
