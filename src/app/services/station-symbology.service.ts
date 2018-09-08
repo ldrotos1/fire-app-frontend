@@ -42,7 +42,7 @@ export class StationSymbologyService {
 
     const mapStation = new StationMapSymbol( station );
     mapStation.mapMarker = L.circleMarker( L.latLng( station.lat, station.lon ) );
-    mapStation.mapMarker.setRadius( 4 );
+    mapStation.mapMarker.setRadius( 5 );
     mapStation.mapMarker.setStyle( this.symbologyService.getStationSym() );
 
     // Sets up the mouse-over event handler
@@ -70,7 +70,7 @@ export class StationSymbologyService {
 
       switch ( mapStation.symbolState ) {
         case 'DEFAULT':
-          mapStation.mapMarker.setRadius( 4 );
+          mapStation.mapMarker.setRadius( 5 );
           mapStation.mapMarker.setStyle( this.symbologyService.getStationSym() );
           break;
         case 'SELECTED':
@@ -78,7 +78,7 @@ export class StationSymbologyService {
           mapStation.mapMarker.setStyle( this.symbologyService.getSelectedStationSym() );
           break;
         case 'GREYOUT':
-          mapStation.mapMarker.setRadius( 4 );
+          mapStation.mapMarker.setRadius( 5 );
           mapStation.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
           break;
       }
@@ -114,7 +114,7 @@ export class StationSymbologyService {
     for ( const station of stations ) {
       station.symbolState = 'DEFAULT';
       station.baseSymbolState = 'DEFAULT';
-      station.mapMarker.setRadius( 4 );
+      station.mapMarker.setRadius( 5 );
       station.mapMarker.setStyle( this.symbologyService.getStationSym() );
     }
   }
@@ -134,7 +134,7 @@ export class StationSymbologyService {
       } else {
         station.symbolState = 'DEFAULT';
         station.baseSymbolState = 'DEFAULT';
-        station.mapMarker.setRadius( 4 );
+        station.mapMarker.setRadius( 5 );
         station.mapMarker.setStyle( this.symbologyService.getStationSym() );
       }
     }
@@ -150,12 +150,12 @@ export class StationSymbologyService {
       if ( stationIds.includes( station.stationId ) ) {
         station.symbolState = 'DEFAULT';
         station.baseSymbolState = 'DEFAULT';
-        station.mapMarker.setRadius( 4 );
+        station.mapMarker.setRadius( 5 );
         station.mapMarker.setStyle( this.symbologyService.getStationSym() );
       } else {
         station.symbolState = 'GREYOUT';
         station.baseSymbolState = 'GREYOUT';
-        station.mapMarker.setRadius( 4 );
+        station.mapMarker.setRadius( 5 );
         station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
       }
     }
@@ -183,11 +183,11 @@ export class StationSymbologyService {
           // Set symbol to unhighlighted state
           if ( station.baseSymbolState === 'DEFAULT' ) {
             station.symbolState = 'DEFAULT';
-            station.mapMarker.setRadius( 4 );
+            station.mapMarker.setRadius( 5 );
             station.mapMarker.setStyle( this.symbologyService.getStationSym() );
           } else if ( station.baseSymbolState === 'GREYOUT') {
             station.symbolState = 'GREYOUT';
-            station.mapMarker.setRadius( 4 );
+            station.mapMarker.setRadius( 5 );
             station.mapMarker.setStyle( this.symbologyService.getGreyOutStationSym() );
           }
         }

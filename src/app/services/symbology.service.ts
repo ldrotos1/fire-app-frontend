@@ -29,7 +29,7 @@ export class SymbologyService {
     };
 
     this.stationGreyOutSym = {
-      color: '#000000',
+      color: '#999999',
       weight: 2,
       opacity: 1.0,
       fillColor: '#d9d9d9',
@@ -37,7 +37,7 @@ export class SymbologyService {
     };
 
     this.stationGreyOutHoverSym = {
-      color: '#000000',
+      color: '#999999',
       weight: 2,
       opacity: 1.0,
       fillColor: '#d9d9d9',
