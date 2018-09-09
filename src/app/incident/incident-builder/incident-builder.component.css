@@ -10,3 +10,9 @@
 mat-form-field {
 	width: 100%;
 }
+
+#incident-simulate-row {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 20px;
+}

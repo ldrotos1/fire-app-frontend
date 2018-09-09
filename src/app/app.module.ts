@@ -16,6 +16,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatRadioModule } from '@angular/material/radio';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -39,6 +41,10 @@ import { ApparatusViewComponent } from './apparatus-info/apparatus-view/apparatu
 import { ApparatusDeptChartComponent } from './apparatus-info/apparatus-view/apparatus-dept-chart/apparatus-dept-chart.component';
 import { IncidentBuilderComponent } from './incident/incident-builder/incident-builder.component';
 import { IncidentTypeSelectorComponent } from './incident/incident-builder/incident-type-selector/incident-type-selector.component';
+import { StructureFireFormComponent } from './incident/incident-builder/structure-fire-form/structure-fire-form.component';
+import { VehicleAccidentFormComponent } from './incident/incident-builder/vehicle-accident-form/vehicle-accident-form.component';
+import { MassCasualtyFormComponent } from './incident/incident-builder/mass-casualty-form/mass-casualty-form.component';
+import { FuelSpillFormComponent } from './incident/incident-builder/fuel-spill-form/fuel-spill-form.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +68,10 @@ import { IncidentTypeSelectorComponent } from './incident/incident-builder/incid
     ApparatusDeptChartComponent,
     IncidentBuilderComponent,
     IncidentTypeSelectorComponent,
+    StructureFireFormComponent,
+    VehicleAccidentFormComponent,
+    MassCasualtyFormComponent,
+    FuelSpillFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +91,8 @@ import { IncidentTypeSelectorComponent } from './incident/incident-builder/incid
     MatCardModule,
     MatTableModule,
     MatTooltipModule,
+    MatSlideToggleModule,
+    MatRadioModule,
     ChartsModule,
     AppRoutingModule
   ],

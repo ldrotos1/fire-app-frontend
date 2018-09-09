@@ -1,10 +1,10 @@
-import { FuelSpillIncident } from '../../../classes/incident/fuelspillincident';
-import { IncidentType } from '../../../classes/incident/incidenttype';
-import { MassCasualtyIncident } from '../../../classes/incident/masscasualtyincident';
-import { MedEmergencyIncident } from '../../../classes/incident/medemergencyincident';
-import { StructureFireIncident } from '../../../classes/incident/structurefireincident';
-import { VehicleAccidentIncident } from '../../../classes/incident/vehicleaccidentincident';
-import { WaterRescueIncident } from '../../../classes/incident/waterrescueincident';
+import { FuelSpillIncident } from '../../../classes/incident/fuel-spill-incident';
+import { IncidentType } from '../../../classes/incident/incident-type';
+import { MassCasualtyIncident } from '../../../classes/incident/mass-casualty-incident';
+import { MedEmergencyIncident } from '../../../classes/incident/med-emergency-incident';
+import { StructureFireIncident } from '../../../classes/incident/structure-fire-incident';
+import { VehicleAccidentIncident } from '../../../classes/incident/vehicle-accident-incident';
+import { WaterRescueIncident } from '../../../classes/incident/water-rescue-incident';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -16,18 +16,18 @@ export class IncidentTypeSelectorComponent implements OnInit {
 
   @Output() incidentSelected = new EventEmitter<boolean>();
 
-  private incidentTypes: Array<IncidentType>;
+  private incidentTypes: Array<string>;
 
   constructor() {
 
     // Populates the incident type array
-    this.incidentTypes = new Array<IncidentType>();
-    this.incidentTypes.push( new StructureFireIncident() );
-    this.incidentTypes.push( new MedEmergencyIncident() );
-    this.incidentTypes.push( new VehicleAccidentIncident() );
-    this.incidentTypes.push( new MassCasualtyIncident() );
-    this.incidentTypes.push( new FuelSpillIncident() );
-    this.incidentTypes.push( new WaterRescueIncident() );
+    this.incidentTypes = new Array<string>();
+    this.incidentTypes.push( 'Structure Fire' );
+    this.incidentTypes.push( 'Medical Emergency' );
+    this.incidentTypes.push( 'Vehicle Accident Emergency' );
+    this.incidentTypes.push( 'Mass Casualty Emergency' );
+    this.incidentTypes.push( 'Flammable Fuel Spill' );
+    this.incidentTypes.push( 'Water Rescue Emergency' );
   }
 
   ngOnInit() {}

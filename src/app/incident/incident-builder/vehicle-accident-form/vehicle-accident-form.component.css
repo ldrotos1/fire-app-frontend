@@ -1,0 +1,19 @@
+#top-controls-row {
+	display: flex;
+	flex-direction: row;
+	margin: 15px 0px 15px 0px;
+}
+
+.top-control-cell {
+	flex-grow: 1;
+}
+
+#bottom-controls-row {
+	display: flex;
+	flex-direction: column;
+	margin: 15px 0px 15px 0px;
+}
+
+.bottom-control-cell {
+	margin: 10px 0px 10px 0px;
+}

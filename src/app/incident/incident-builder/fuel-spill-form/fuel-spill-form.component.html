@@ -1,0 +1,19 @@
+<section>
+	<div>
+		<mat-label>Spill Size</mat-label>
+	</div>
+	<div>
+		<mat-radio-group color="primary" [(ngModel)]="incidentForm.spillSize">
+  			<mat-radio-button color="primary" value="small">Small ( &le; 55 gallons )</mat-radio-button>
+  			<mat-radio-button color="primary" value="large">Large ( &#62; 55 gallons )</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div>
+    	<mat-slide-toggle color="primary" 
+    		(change)="ignitedChanged($event)" 
+    		[checked]="incidentForm.ignited">
+    			<span *ngIf="incidentForm.ignited">Spill has ignited</span>
+    			<span *ngIf="!incidentForm.ignited">Spill has not ignited</span>
+      	</mat-slide-toggle>
+	</div>
+</section>

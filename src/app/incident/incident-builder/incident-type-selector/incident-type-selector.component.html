@@ -2,7 +2,7 @@
 	<mat-form-field>
 	  <mat-select placeholder="Select an emergency incident type" (selectionChange)="selectionChange($event)">
 	    <mat-option *ngFor="let incident of incidentTypes" [value]="incident">
-	      {{ incident.typeName }}
+	      {{ incident }}
 	    </mat-option>
 	  </mat-select>
 	</mat-form-field>

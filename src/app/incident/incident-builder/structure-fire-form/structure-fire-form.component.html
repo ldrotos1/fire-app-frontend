@@ -1,0 +1,23 @@
+<section>
+	<div>
+		<mat-form-field>
+			<input matInput 
+				type="number"
+				placeholder="Number of alarms"
+				min="1"
+				max="5" 
+				[(ngModel)]="incidentForm.alarmNumber"
+				required>
+				<mat-hint align="start">1 - 5</mat-hint>
+		</mat-form-field>
+	</div>
+	<div>
+    	<mat-slide-toggle color="primary" 
+    		(change)="hydrantAccessChanged($event)" 
+    		[checked]="incidentForm.hydrantAccess">
+    			<span *ngIf="incidentForm.hydrantAccess">Has fire hydrant access</span>
+    			<span *ngIf="!incidentForm.hydrantAccess">No fire hydrant access</span>
+      	</mat-slide-toggle>
+	</div>
+</section>
+

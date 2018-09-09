@@ -1,0 +1,14 @@
+<section>
+	<div>
+		<mat-form-field>
+			<input matInput 
+				type="number"
+				placeholder="Number of casualties"
+				min="5"
+				max="100" 
+				[(ngModel)]="incidentForm.casualties"
+				required>
+			<mat-hint align="start">5 - 100</mat-hint>
+		</mat-form-field>
+	</div>
+</section>

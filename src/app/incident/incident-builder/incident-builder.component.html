@@ -2,16 +2,39 @@
 	(incidentSelected)="incidentTypeSelected($event)">
 </app-incident-type-selector>
 <mat-card *ngIf="incidentType">
-	<div id="incident-location-row">
-		<mat-form-field>
-			<mat-label>Incident Location</mat-label>
-			<input matInput [readonly]="true" [value]="getIncidentLoc()">
-		</mat-form-field>
-		<button mat-mini-fab 
-			matTooltip="Select incident location on the map" 
-			color="primary"
-			(click)="selectLocation($event)">
-    		<mat-icon aria-label="Select incident location">gps_fixed</mat-icon>
-  		</button>
-	</div>
+	<form #incidentBuilderForm="ngForm">
+		<div id="incident-location-row">
+			<mat-form-field>
+				<mat-label>Incident Location</mat-label>
+				<input matInput [readonly]="true" [value]="getIncidentLoc()" required>
+			</mat-form-field>
+			<button mat-mini-fab 
+				matTooltip="Select incident location on the map" 
+				color="primary"
+				(click)="selectLocation($event)">
+	    		<mat-icon aria-label="Select incident location">gps_fixed</mat-icon>
+	  		</button>
+		</div>
+		<app-structure-fire-form 
+			*ngIf="isIncidentType( 'Structure Fire' )"
+			[(incidentForm)]="incidentForm">
+		</app-structure-fire-form>
+		<app-vehicle-accident-form 
+			*ngIf="isIncidentType( 'Vehicle Accident Emergency' )"
+			[(incidentForm)]="incidentForm">
+		</app-vehicle-accident-form>
+	  	<app-mass-casualty-form 
+	  		*ngIf="isIncidentType( 'Mass Casualty Emergency' )" 
+	  		[(incidentForm)]="incidentForm">
+		</app-mass-casualty-form>
+		<app-fuel-spill-form 
+			*ngIf="isIncidentType( 'Flammable Fuel Spill' )" 
+			[(incidentForm)]="incidentForm">
+		</app-fuel-spill-form>
+		<div id="incident-simulate-row">
+			<button mat-raised-button color="primary"
+				[disabled]="!incidentBuilderForm.form.valid" 
+				(click)="simulateResponse()">Simulate Response</button>
+		</div>
+	</form>
 </mat-card>

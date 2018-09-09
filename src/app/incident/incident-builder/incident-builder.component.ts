@@ -1,4 +1,5 @@
-import { IncidentType } from '../../classes/incident/incidenttype';
+import { IncidentForm } from '../../classes/incident/incident-form';
+import { IncidentType } from '../../classes/incident/incident-type';
 import { CrosshairViewService } from '../../services/crosshair-view.service';
 import { MapstateService } from '../../services/mapstate.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,11 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IncidentBuilderComponent implements OnInit {
 
-  private incidentType: IncidentType;
+  private incidentType: string;
+  private incidentForm: IncidentForm;
 
   constructor(
     private mapStateService: MapstateService,
-    private crosshairService: CrosshairViewService ) { }
+    private crosshairService: CrosshairViewService ) {
+      this.incidentForm = new IncidentForm();
+  }
 
   ngOnInit() {
   }
@@ -39,12 +43,16 @@ export class IncidentBuilderComponent implements OnInit {
       .subscribe( coord => {
 
         // Sets the incident location
-        this.incidentType.latitude = coord.lat;
-        this.incidentType.longitude = coord.lng;
+        this.incidentForm.latitude = coord.lat;
+        this.incidentForm.longitude = coord.lng;
 
         // Remove the crosshair symbol from the cursor
         this.crosshairService.setCrosshairState( false );
       });
+  }
+
+  simulateResponse(): void {
+    console.log( this.incidentForm );
   }
 
   /**
@@ -53,7 +61,7 @@ export class IncidentBuilderComponent implements OnInit {
    */
   getIncidentLoc(): string {
 
-    const incident = this.incidentType;
+    const incident = this.incidentForm;
 
     if ( incident.latitude !== undefined && incident.longitude !== undefined ) {
       return 'latitude: ' + incident.latitude.toFixed( 6 ) +
@@ -61,5 +69,17 @@ export class IncidentBuilderComponent implements OnInit {
     } else {
         return '';
     }
+  }
+
+  /**
+   * Returns a boolean indicating if the specified incident
+   * type matches the current incident type
+   */
+  isIncidentType( incidentType: string ): boolean {
+
+    if ( incidentType === this.incidentType ) {
+      return true;
+    }
+    return false;
   }
 }
