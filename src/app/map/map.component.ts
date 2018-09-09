@@ -32,8 +32,8 @@ export class MapComponent implements OnInit {
     zoom: 10,
     minZoom: 9,
     center: L.latLng(38.8613, -77.3457),
-    maxBounds: [[38.574669, -77.755987],
-                [39.104280, -76.704703]],
+    maxBounds: [[37.574669, -78.755987],
+                [40.104280, -75.704703]],
     bounceAtZoomLimits: false
   };
 
