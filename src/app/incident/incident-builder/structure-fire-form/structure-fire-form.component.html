@@ -5,10 +5,14 @@
 				type="number"
 				placeholder="Number of alarms"
 				min="1"
-				max="5" 
+				max="5"
+				[formControl]="alarmNumControl"
 				[(ngModel)]="incidentForm.alarmNumber"
 				required>
-				<mat-hint align="start">1 - 5</mat-hint>
+			<mat-hint align="start">1 - 5</mat-hint>
+			<mat-error *ngIf="alarmNumControl.hasError('required')">This field is required</mat-error>
+			<mat-error *ngIf="alarmNumControl.hasError('min')">Minimum value is 1</mat-error>
+			<mat-error *ngIf="alarmNumControl.hasError('max')">Maximum value is 5</mat-error>
 		</mat-form-field>
 	</div>
 	<div>

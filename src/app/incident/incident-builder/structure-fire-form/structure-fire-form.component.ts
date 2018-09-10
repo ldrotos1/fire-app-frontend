@@ -1,5 +1,6 @@
 import { IncidentForm } from '../../../classes/incident/incident-form';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-structure-fire-form',
@@ -9,6 +10,12 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 export class StructureFireFormComponent implements OnInit {
 
   @Input() incidentForm: IncidentForm;
+
+  private alarmNumControl = new FormControl('', [
+    Validators.required,
+    Validators.min( 1 ),
+    Validators.max( 5 )
+  ]);
 
   constructor() { }
 

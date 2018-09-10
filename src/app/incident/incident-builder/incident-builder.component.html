@@ -6,7 +6,12 @@
 		<div id="incident-location-row">
 			<mat-form-field>
 				<mat-label>Incident Location</mat-label>
-				<input matInput [readonly]="true" [value]="getIncidentLoc()" required>
+				<input matInput 
+					[readonly]="true" 
+					[formControl]="locationControl"
+				    [(ngModel)]="incidentForm.location" 
+				    required>
+				<mat-error *ngIf="locationControl.hasError('required')">This field is required</mat-error>
 			</mat-form-field>
 			<button mat-mini-fab 
 				matTooltip="Select incident location on the map" 

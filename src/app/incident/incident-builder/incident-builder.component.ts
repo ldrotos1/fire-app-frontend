@@ -3,6 +3,7 @@ import { IncidentType } from '../../classes/incident/incident-type';
 import { CrosshairViewService } from '../../services/crosshair-view.service';
 import { MapstateService } from '../../services/mapstate.service';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-incident-builder',
@@ -13,6 +14,10 @@ export class IncidentBuilderComponent implements OnInit {
 
   private incidentType: string;
   private incidentForm: IncidentForm;
+
+  private locationControl = new FormControl('', [
+    Validators.required
+  ]);
 
   constructor(
     private mapStateService: MapstateService,
@@ -45,6 +50,7 @@ export class IncidentBuilderComponent implements OnInit {
         // Sets the incident location
         this.incidentForm.latitude = coord.lat;
         this.incidentForm.longitude = coord.lng;
+        this.incidentForm.location = this._getIncidentLoc();
 
         // Remove the crosshair symbol from the cursor
         this.crosshairService.setCrosshairState( false );
@@ -53,22 +59,6 @@ export class IncidentBuilderComponent implements OnInit {
 
   simulateResponse(): void {
     console.log( this.incidentForm );
-  }
-
-  /**
-   * Returns a formated string representing the current
-   * incident location
-   */
-  getIncidentLoc(): string {
-
-    const incident = this.incidentForm;
-
-    if ( incident.latitude !== undefined && incident.longitude !== undefined ) {
-      return 'latitude: ' + incident.latitude.toFixed( 6 ) +
-         ',  ' + 'longitude: ' + incident.longitude.toFixed( 6 );
-    } else {
-        return '';
-    }
   }
 
   /**
@@ -81,5 +71,21 @@ export class IncidentBuilderComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Returns a formated string representing the current
+   * incident location
+   */
+  _getIncidentLoc(): string {
+
+    const incident = this.incidentForm;
+
+    if ( incident.latitude !== undefined && incident.longitude !== undefined ) {
+      return 'latitude: ' + incident.latitude.toFixed( 6 ) +
+         ',  ' + 'longitude: ' + incident.longitude.toFixed( 6 );
+    } else {
+        return '';
+    }
   }
 }

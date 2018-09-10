@@ -6,6 +6,7 @@ import { VehicleAccidentIncident } from './vehicle-accident-incident';
 import { WaterRescueIncident } from './water-rescue-incident';
 
 export class IncidentForm {
+  location: string;
   latitude: number;
   longitude: number;
   hydrantAccess: boolean;

@@ -1,5 +1,6 @@
 import { IncidentForm } from '../../../classes/incident/incident-form';
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-vehicle-accident-form',
@@ -9,6 +10,18 @@ import { Component, OnInit, Input } from '@angular/core';
 export class VehicleAccidentFormComponent implements OnInit {
 
   @Input() incidentForm: IncidentForm;
+
+  private vehicleCountControl = new FormControl('', [
+    Validators.required,
+    Validators.min( 1 ),
+    Validators.max( 3 )
+  ]);
+
+  private injuryCountControl = new FormControl('', [
+    Validators.required,
+    Validators.min( 0 ),
+    Validators.max( 4 )
+  ]);
 
   constructor() { }
 
