@@ -1,21 +1,16 @@
 import { IncidentForm } from '../../../classes/incident/incident-form';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { ControlContainer, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-structure-fire-form',
   templateUrl: './structure-fire-form.component.html',
-  styleUrls: ['./structure-fire-form.component.css']
+  styleUrls: ['./structure-fire-form.component.css'],
+  viewProviders: [ { provide: ControlContainer, useExisting: NgForm } ]
 })
 export class StructureFireFormComponent implements OnInit {
 
   @Input() incidentForm: IncidentForm;
-
-  private alarmNumControl = new FormControl('', [
-    Validators.required,
-    Validators.min( 1 ),
-    Validators.max( 5 )
-  ]);
 
   constructor() { }
 

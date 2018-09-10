@@ -1,27 +1,16 @@
 import { IncidentForm } from '../../../classes/incident/incident-form';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { ControlContainer, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-vehicle-accident-form',
   templateUrl: './vehicle-accident-form.component.html',
-  styleUrls: ['./vehicle-accident-form.component.css']
+  styleUrls: ['./vehicle-accident-form.component.css'],
+  viewProviders: [ { provide: ControlContainer, useExisting: NgForm } ]
 })
 export class VehicleAccidentFormComponent implements OnInit {
 
   @Input() incidentForm: IncidentForm;
-
-  private vehicleCountControl = new FormControl('', [
-    Validators.required,
-    Validators.min( 1 ),
-    Validators.max( 3 )
-  ]);
-
-  private injuryCountControl = new FormControl('', [
-    Validators.required,
-    Validators.min( 0 ),
-    Validators.max( 4 )
-  ]);
 
   constructor() { }
 

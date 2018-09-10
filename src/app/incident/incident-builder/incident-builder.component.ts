@@ -3,7 +3,6 @@ import { IncidentType } from '../../classes/incident/incident-type';
 import { CrosshairViewService } from '../../services/crosshair-view.service';
 import { MapstateService } from '../../services/mapstate.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-incident-builder',
@@ -14,10 +13,6 @@ export class IncidentBuilderComponent implements OnInit {
 
   private incidentType: string;
   private incidentForm: IncidentForm;
-
-  private locationControl = new FormControl('', [
-    Validators.required
-  ]);
 
   constructor(
     private mapStateService: MapstateService,

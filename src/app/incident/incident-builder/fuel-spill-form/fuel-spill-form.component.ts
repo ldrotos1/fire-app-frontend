@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-fuel-spill-form',
   templateUrl: './fuel-spill-form.component.html',
-  styleUrls: ['./fuel-spill-form.component.css']
+  styleUrls: ['./fuel-spill-form.component.css'],
 })
 export class FuelSpillFormComponent implements OnInit {
 

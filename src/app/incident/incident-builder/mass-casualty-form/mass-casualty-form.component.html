@@ -5,14 +5,19 @@
 				type="number"
 				placeholder="Number of casualties"
 				min="5"
-				max="100" 
-				[formControl]="casCountControl"
+				max="100"
+				pattern="([5-9]|([1-9][0-9])|100)"
+				name="countCtrl"
+				#countCtrl="ngModel"
 				[(ngModel)]="incidentForm.casualties"
 				required>
 			<mat-hint align="start">5 - 100</mat-hint>
-			<mat-error *ngIf="casCountControl.hasError('required')">This field is required</mat-error>
-			<mat-error *ngIf="casCountControl.hasError('min')">Minimum value is 5</mat-error>
-			<mat-error *ngIf="casCountControl.hasError('max')">Maximum value is 100</mat-error>
+			<mat-error *ngIf="countCtrl.invalid && countCtrl.dirty && countCtrl.errors.required">
+				This field is required
+			</mat-error>
+		    <mat-error *ngIf="countCtrl.invalid && countCtrl.dirty && countCtrl.errors.pattern">
+		    	Value must be in the range 5 - 100
+		    </mat-error>
 		</mat-form-field>
 	</div>
 </section>
