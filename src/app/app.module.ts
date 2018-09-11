@@ -18,6 +18,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -93,6 +95,8 @@ import { FuelSpillFormComponent } from './incident/incident-builder/fuel-spill-f
     MatTooltipModule,
     MatSlideToggleModule,
     MatRadioModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
     ChartsModule,
     AppRoutingModule
   ],

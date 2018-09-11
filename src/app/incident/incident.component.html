@@ -1,5 +1,12 @@
 <app-sub-header [title]="title" [icon]="icon"></app-sub-header>
 <div id="info-container">
-	<app-incident-builder></app-incident-builder>
+	<app-incident-builder (simulate)="onSimulate($event)"></app-incident-builder>
 </div>
+<div *ngIf="processing" id="processing-container">
+	<div id="overlay"></div>
+	<div id="spinner">
+		<mat-spinner color="primary"></mat-spinner>
+	</div>
+</div>
+
 

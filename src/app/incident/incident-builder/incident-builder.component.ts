@@ -2,7 +2,7 @@ import { IncidentForm } from '../../classes/incident/incident-form';
 import { IncidentType } from '../../classes/incident/incident-type';
 import { CrosshairViewService } from '../../services/crosshair-view.service';
 import { MapstateService } from '../../services/mapstate.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-incident-builder',
@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./incident-builder.component.css']
 })
 export class IncidentBuilderComponent implements OnInit {
+
+  @Output() simulate = new EventEmitter<IncidentType>();
 
   private incidentType: string;
   private incidentForm: IncidentForm;
@@ -52,8 +54,36 @@ export class IncidentBuilderComponent implements OnInit {
       });
   }
 
+  /**
+   * Begins the incident response simulation
+   */
   simulateResponse(): void {
-    console.log( this.incidentForm );
+
+    let incident;
+
+    switch ( this.incidentType ) {
+      case 'Structure Fire':
+        incident = this.incidentForm.getStructureFireIncident();
+        break;
+      case 'Medical Emergency':
+        incident = this.incidentForm.getMedEmergencyIncident();
+        break;
+      case 'Vehicle Accident Emergency':
+        incident = this.incidentForm.getVehicleAccidentIncident();
+        break;
+      case 'Mass Casualty Emergency':
+        incident = this.incidentForm.getMassCasualtyIncident();
+        break;
+      case 'Flammable Fuel Spill':
+        incident = this.incidentForm.getFuelSpillIncident();
+        break;
+      case 'Water Rescue Emergency':
+        incident = this.incidentForm.getWaterRescueIncident();
+        break;
+    }
+
+    this.simulate.emit( incident );
+    this.crosshairService.setCrosshairState( false );
   }
 
   /**
