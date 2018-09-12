@@ -1,0 +1,37 @@
+<mat-card class="mat-typography">
+	<section id="top-row">
+		<div id="top-row-title">
+			<h2>{{ incidentResponse.incidentTitle }}</h2>
+		</div>
+		<div id="top-row-button">
+			<button mat-mini-fab 
+				matTooltip="Simulate a new incident" 
+				color="primary"
+				(click)="newIncident()">
+	    		<mat-icon aria-label="Simulate a new incident">replay</mat-icon>
+	  		</button>
+  		</div>
+	</section>
+	<section id="response-info">
+		<div class="response-info-sub-section">
+			<div class="response-info-text">
+				<span>Number of responding stations: </span>
+				<strong>{{ incidentResponse.reponseRoutes.length }}</strong>
+			</div>
+			<div class="response-info-text">
+				<span>Number of responding units: </span> 
+				<strong>{{ incidentResponse.respondingApparatus.length }}</strong>
+			</div>
+		</div>
+		<div id="response-time-info" class="response-info-sub-section">
+			<div class="response-info-text">
+				<span>First arriving unit travel time: </span>
+				<strong *ngIf="fastestArrivalTime">{{ fastestArrivalTime | secondsToMinutes }}</strong>
+			</div>
+			<div class="response-info-text">
+				<span>Last arriving unit travel time: </span>
+				<strong *ngIf="slowestArrivalTime">{{ slowestArrivalTime | secondsToMinutes }}</strong>
+			</div>
+		</div>
+	</section>
+</mat-card>

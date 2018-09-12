@@ -17,7 +17,11 @@ export class IncidentComponent implements OnInit {
 
   constructor(
     private incidentService: IncidentService,
-    private errorSnackBar: MatSnackBar ) { }
+    private errorSnackBar: MatSnackBar ) {
+
+    //this.response = new IncidentResponse();
+    //this.response.incidentTitle = "Medical Emergency";
+  }
 
   ngOnInit() {
   }
@@ -39,5 +43,13 @@ export class IncidentComponent implements OnInit {
           this.errorSnackBar.open( error.error.message, null, { duration: 3000 });
         }
     );
+  }
+
+  /**
+   * Clears the current incident response so that a new
+   * incident can be simulated
+   */
+  clearResponse() {
+    this.response = null;
   }
 }

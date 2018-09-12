@@ -47,6 +47,8 @@ import { StructureFireFormComponent } from './incident/incident-builder/structur
 import { VehicleAccidentFormComponent } from './incident/incident-builder/vehicle-accident-form/vehicle-accident-form.component';
 import { MassCasualtyFormComponent } from './incident/incident-builder/mass-casualty-form/mass-casualty-form.component';
 import { FuelSpillFormComponent } from './incident/incident-builder/fuel-spill-form/fuel-spill-form.component';
+import { IncidentResponseComponent } from './incident/incident-response/incident-response.component';
+import { SecondsToMinutesPipe } from './pipes/seconds-to-minutes.pipe';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { FuelSpillFormComponent } from './incident/incident-builder/fuel-spill-f
     VehicleAccidentFormComponent,
     MassCasualtyFormComponent,
     FuelSpillFormComponent,
+    IncidentResponseComponent,
+    SecondsToMinutesPipe,
   ],
   imports: [
     BrowserModule,

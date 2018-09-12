@@ -1,6 +1,14 @@
 <app-sub-header [title]="title" [icon]="icon"></app-sub-header>
 <div id="info-container">
-	<app-incident-builder (simulate)="onSimulate($event)"></app-incident-builder>
+	<app-incident-builder 
+		*ngIf="!response" 
+		(simulate)="onSimulate($event)">
+	</app-incident-builder>
+	<app-incident-response 
+		*ngIf="response" 
+		[incidentResponse]="response"
+		(clearResponse)="clearResponse()">
+	</app-incident-response>
 </div>
 <div *ngIf="processing" id="processing-container">
 	<div id="overlay"></div>

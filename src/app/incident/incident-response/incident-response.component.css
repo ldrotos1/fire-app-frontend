@@ -1,0 +1,42 @@
+#top-row {
+	display: flex;
+	flex-direction: row;
+}
+
+#top-row-title {
+	display: flex;
+	flex-grow: 1;
+	align-items: flex-end;
+}
+
+h2 {
+	margin: 0px;
+}
+
+#top-row-button {
+	display: flex;
+	flex-grow: 1;
+	justify-content: flex-end;
+}
+
+#response-info {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+	margin-top: 15px;
+}
+
+.response-info-sub-section {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.response-info-text {
+	margin: 3px 0px 3px 0px;
+}
+
+#response-time-info {
+	justify-content: center;
+}
+
