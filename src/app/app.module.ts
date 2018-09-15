@@ -20,6 +20,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -49,6 +51,7 @@ import { MassCasualtyFormComponent } from './incident/incident-builder/mass-casu
 import { FuelSpillFormComponent } from './incident/incident-builder/fuel-spill-form/fuel-spill-form.component';
 import { IncidentResponseComponent } from './incident/incident-response/incident-response.component';
 import { SecondsToMinutesPipe } from './pipes/seconds-to-minutes.pipe';
+import { StationDialogComponent } from './station-dialog/station-dialog.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +81,7 @@ import { SecondsToMinutesPipe } from './pipes/seconds-to-minutes.pipe';
     FuelSpillFormComponent,
     IncidentResponseComponent,
     SecondsToMinutesPipe,
+    StationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,10 +105,13 @@ import { SecondsToMinutesPipe } from './pipes/seconds-to-minutes.pipe';
     MatRadioModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatDialogModule,
+    MatDividerModule,
     ChartsModule,
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [StationDialogComponent],
 })
 export class AppModule { }

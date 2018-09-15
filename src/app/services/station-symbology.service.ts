@@ -1,8 +1,10 @@
 import { StationLite } from '../classes/station/StationLite';
 import { StationMapSymbol } from '../classes/station/stationmapsymbol';
+import { StationDialogComponent } from '../station-dialog/station-dialog.component';
 import { MapstateService } from './mapstate.service';
 import { SymbologyService } from './symbology.service';
 import { Injectable, NgZone } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import * as L from 'leaflet';
 
@@ -14,6 +16,7 @@ export class StationSymbologyService {
   constructor(
       private mapStateService: MapstateService,
       private symbologyService: SymbologyService,
+      private dialog: MatDialog,
       private router: Router,
       private zone: NgZone ) {}
 
@@ -95,6 +98,14 @@ export class StationSymbologyService {
           // Displays the station information in the station info pane
           const stationIds = [ mapStation.stationId ];
           this.mapStateService.selectStations( stationIds );
+        } else {
+
+          // Displays the station information in a dialog
+          this.dialog.open( StationDialogComponent, {
+            height: '550px',
+            width: '600px',
+            data: { stationId: mapStation.stationId }
+          });
         }
       });
     });
@@ -195,8 +206,3 @@ export class StationSymbologyService {
     }
   }
 }
-
-
-
-
-
