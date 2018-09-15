@@ -1,6 +1,7 @@
 import { DepartmentStation } from '../../../classes/department/departmentstation';
 import { Component, OnInit, NgZone, Input } from '@angular/core';
 import { MapstateService } from '../../../services/mapstate.service';
+import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-station-list',
@@ -11,11 +12,17 @@ export class StationListComponent implements OnInit {
 
   @Input() stations: Array<DepartmentStation>;
 
+  private sortedData: Array<DepartmentStation>;
   private displayedColumns: string[] = [ 'stationDesignator', 'stationName', 'unitCount' ];
 
   constructor( private mapstateService: MapstateService,  private zone: NgZone ) { }
 
   ngOnInit() {
+
+    // Sets up the table sorting
+    this.sortedData = this.stations.slice();
+
+    // Watches for changes in the hovering station
     this.mapstateService.watchHoverStationSym.subscribe( stationId => {
       this.updateTableRowSym( stationId );
     });
@@ -56,4 +63,30 @@ export class StationListComponent implements OnInit {
     });
   }
 
+  /**
+  * Sorts the table rows
+  */
+  sortData( sort: Sort ) {
+
+    const data = this.sortedData.slice();
+    if ( !sort.active || sort.direction === '' ) {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch ( sort.active ) {
+        case 'unitCount': return this._compare( a.unitCount, b.unitCount, isAsc );
+        default: return 0;
+      }
+    });
+  }
+
+  /*
+   * Used to compare values for the table sorting
+   */
+  _compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 }

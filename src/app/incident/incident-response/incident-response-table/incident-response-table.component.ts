@@ -26,6 +26,9 @@ export class IncidentResponseTableComponent implements OnInit {
     this.sortedData = this.respondingUnits.slice();
   }
 
+  /**
+   * Sorts the table rows
+   */
   sortData( sort: Sort ) {
 
     const data = this.sortedData.slice();
@@ -46,6 +49,9 @@ export class IncidentResponseTableComponent implements OnInit {
     });
   }
 
+  /*
+   * Used to compare values for the table sorting
+   */
   _compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
