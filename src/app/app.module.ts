@@ -52,6 +52,7 @@ import { FuelSpillFormComponent } from './incident/incident-builder/fuel-spill-f
 import { IncidentResponseComponent } from './incident/incident-response/incident-response.component';
 import { SecondsToMinutesPipe } from './pipes/seconds-to-minutes.pipe';
 import { StationDialogComponent } from './station-dialog/station-dialog.component';
+import { IncidentResponseTableComponent } from './incident/incident-response/incident-response-table/incident-response-table.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { StationDialogComponent } from './station-dialog/station-dialog.componen
     IncidentResponseComponent,
     SecondsToMinutesPipe,
     StationDialogComponent,
+    IncidentResponseTableComponent,
   ],
   imports: [
     BrowserModule,

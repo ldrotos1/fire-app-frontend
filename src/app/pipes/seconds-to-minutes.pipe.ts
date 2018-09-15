@@ -23,6 +23,6 @@ export class SecondsToMinutesPipe implements PipeTransform {
       colon = ':0';
     }
 
-    return minutes.toString() + colon + seconds.toString() + ' mins';
+    return minutes.toString() + colon + seconds.toString();
   }
 }

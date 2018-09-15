@@ -26,12 +26,18 @@
 		<div id="response-time-info" class="response-info-sub-section">
 			<div class="response-info-text">
 				<span>First arriving unit travel time: </span>
-				<strong *ngIf="fastestArrivalTime">{{ fastestArrivalTime | secondsToMinutes }}</strong>
+				<strong *ngIf="fastestArrivalTime">{{ fastestArrivalTime | secondsToMinutes }} mins</strong>
 			</div>
 			<div class="response-info-text">
 				<span>Last arriving unit travel time: </span>
-				<strong *ngIf="slowestArrivalTime">{{ slowestArrivalTime | secondsToMinutes }}</strong>
+				<strong *ngIf="slowestArrivalTime">{{ slowestArrivalTime | secondsToMinutes }} mins</strong>
 			</div>
 		</div>
+	</section>
+	<section>
+		<app-incident-response-table
+		    *ngIf="incidentResponse.respondingApparatus"
+			[respondingUnits]="incidentResponse.respondingApparatus">
+		</app-incident-response-table>
 	</section>
 </mat-card>

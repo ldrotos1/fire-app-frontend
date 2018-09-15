@@ -1,0 +1,37 @@
+<div id="table-container" class="mat-elevation-z3">
+	<table mat-table [dataSource]="respondingUnits">
+		
+		<ng-container matColumnDef="unitDesignator">
+ 			<th mat-header-cell *matHeaderCellDef>Unit ID</th>
+  			<td mat-cell *matCellDef="let unit">{{ unit.unitDesignator }}</td>
+		</ng-container>
+		
+		<ng-container matColumnDef="typeName">
+ 			<th mat-header-cell *matHeaderCellDef>Unit Type</th>
+  			<td mat-cell *matCellDef="let unit" [matTooltip]="unit.category">{{ unit.typeName }}</td>
+		</ng-container>
+		
+		<ng-container matColumnDef="stationName">
+ 			<th mat-header-cell *matHeaderCellDef>Station</th>
+  			<td mat-cell *matCellDef="let unit">{{ unit.stationName }}</td>
+		</ng-container>
+		
+		<ng-container matColumnDef="deptAbbreviation">
+ 			<th mat-header-cell *matHeaderCellDef>Department</th>
+  			<td mat-cell *matCellDef="let unit" [matTooltip]="unit.departmentName">{{ unit.deptAbbreviation }}</td>
+		</ng-container>
+		
+		<ng-container matColumnDef="travelTime">
+ 			<th mat-header-cell *matHeaderCellDef>Travel Time</th>
+  			<td mat-cell *matCellDef="let unit">{{ unit.travelTime | secondsToMinutes }}</td>
+		</ng-container>
+		
+		<tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+ 		<tr mat-row class="data-row"
+ 			*matRowDef="let row; columns: displayedColumns;"
+ 			[ngClass]="{ 'row-hover': row.isHighlighted === true }"
+ 			(mouseenter)="mouseEnter(row)" 
+ 			(mouseleave)="mouseLeave(row)">
+ 		</tr>
+	</table>
+</div>
