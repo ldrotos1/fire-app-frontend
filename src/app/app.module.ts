@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSortModule } from '@angular/material/sort';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -109,6 +110,7 @@ import { IncidentResponseTableComponent } from './incident/incident-response/inc
     MatSnackBarModule,
     MatDialogModule,
     MatDividerModule,
+    MatSortModule,
     ChartsModule,
     AppRoutingModule
   ],
