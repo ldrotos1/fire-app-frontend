@@ -6,7 +6,7 @@
 // hue. Available color palettes: https://material.io/design/color/
 $fire-app-primary: mat-palette($mat-red, 500, 200, 700);
 $fire-app-accent:  mat-palette($mat-blue-grey, 300, 100, 500);
-$fire-app-warn:    mat-palette($mat-yellow);
+$fire-app-warn:    mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $fire-app-theme: mat-light-theme($fire-app-primary, $fire-app-accent, $fire-app-warn);
