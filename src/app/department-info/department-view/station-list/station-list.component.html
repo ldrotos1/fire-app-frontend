@@ -1,5 +1,5 @@
-<div *ngIf="sortedData" id="table-container" class="mat-elevation-z3">
-	<table mat-table matSort [dataSource]="sortedData" (matSortChange)="sortData($event)">
+<div *ngIf="sortedStations" id="table-container" class="mat-elevation-z3">
+	<table mat-table matSort [dataSource]="sortedStations" (matSortChange)="sortData($event)">
 		
 		<ng-container matColumnDef="stationDesignator">
  			<th mat-header-cell *matHeaderCellDef>Station Number</th>

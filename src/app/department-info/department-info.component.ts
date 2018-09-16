@@ -3,6 +3,7 @@ import { Department } from '../classes/department/department';
 import { DepartmentService } from '../services/department.service';
 import { MapstateService } from '../services/mapstate.service';
 import { ChartData } from '../classes/charts/chartdata';
+import { ChartDataService } from '../services/chart-data.service';
 
 @Component({
   selector: 'app-department-info',
@@ -18,6 +19,7 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
 
   constructor(
     private departmentService: DepartmentService,
+    private chartDataService: ChartDataService,
     private mapstateService: MapstateService ) { }
 
   ngOnInit() {
@@ -34,6 +36,9 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
    */
   onDeptSelected( dept ) {
 
+    this.chartData = null;
+    this.department = null;
+
     // Gets the department information
     this.departmentService.getDepartment( String( dept.departmentId ) )
         .subscribe( department => {
@@ -43,30 +48,8 @@ export class DepartmentInfoComponent implements OnInit, OnDestroy {
             station.isHighlighted = false;
           }
 
-          // Creates the chart data object
-          const chartDataPoints = new Array<number>();
-          chartDataPoints.push( department.unitTypeMap[ 'Fire Suppression' ] );
-          chartDataPoints.push( department.unitTypeMap[ 'Aerial Support' ] );
-          chartDataPoints.push( department.unitTypeMap[ 'Rescue Operations' ] );
-          chartDataPoints.push( department.unitTypeMap[ 'Medical Support' ] );
-          chartDataPoints.push( department.unitTypeMap[ 'Command' ] );
-          chartDataPoints.push( department.unitTypeMap[ 'Special Incident' ] );
-          chartDataPoints.push( department.unitTypeMap[ 'General Support' ] );
-
-          const chartDataset = new ChartData();
-          chartDataset.dataPoints = chartDataPoints;
-          chartDataset.dataLabels = [
-            'Fire Suppression',
-            'Aerial Support',
-            'Rescue Operations',
-            'Medical Support',
-            'Command',
-            'Special Incident',
-            'General Support'
-          ];
-
+          this.chartData = this.chartDataService.getUnitCategoryChartData( department );
           this.department = department;
-          this.chartData = chartDataset;
 
           // Updates the selected stations on the map
           const stationIds = Array<number>();

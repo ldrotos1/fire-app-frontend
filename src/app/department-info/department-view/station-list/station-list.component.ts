@@ -10,17 +10,16 @@ import { Sort } from '@angular/material';
 })
 export class StationListComponent implements OnInit {
 
-  @Input() stations: Array<DepartmentStation>;
+  @Input() set stations( stations: Array<DepartmentStation> ) {
+    this.sortedStations = stations.slice();
+  }
 
-  private sortedData: Array<DepartmentStation>;
+  private sortedStations: Array<DepartmentStation>;
   private displayedColumns: string[] = [ 'stationDesignator', 'stationName', 'unitCount' ];
 
   constructor( private mapstateService: MapstateService,  private zone: NgZone ) { }
 
   ngOnInit() {
-
-    // Sets up the table sorting
-    this.sortedData = this.stations.slice();
 
     // Watches for changes in the hovering station
     this.mapstateService.watchHoverStationSym.subscribe( stationId => {
@@ -52,7 +51,7 @@ export class StationListComponent implements OnInit {
 
     this.zone.run(() => {
 
-      for ( const station of this.stations ) {
+      for ( const station of this.sortedStations ) {
 
         if ( station.stationId === stationId ) {
           station.isHighlighted = true;
@@ -68,13 +67,13 @@ export class StationListComponent implements OnInit {
   */
   sortData( sort: Sort ) {
 
-    const data = this.sortedData.slice();
+    const data = this.sortedStations.slice();
     if ( !sort.active || sort.direction === '' ) {
-      this.sortedData = data;
+      this.sortedStations = data;
       return;
     }
 
-    this.sortedData = data.sort((a, b) => {
+    this.sortedStations = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch ( sort.active ) {
         case 'unitCount': return this._compare( a.unitCount, b.unitCount, isAsc );

@@ -2,6 +2,7 @@ import { ApparatusType } from '../classes/apparatus/apparatustype';
 import { ApparatusTypeLite } from '../classes/apparatus/apparatustypelite';
 import { ChartData } from '../classes/charts/chartdata';
 import { ApparatusService } from '../services/apparatus.service';
+import { ChartDataService } from '../services/chart-data.service';
 import { MapstateService } from '../services/mapstate.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
@@ -20,6 +21,7 @@ export class ApparatusInfoComponent implements OnInit, OnDestroy {
 
   constructor(
     private apparatusService: ApparatusService,
+    private chartDataService: ChartDataService,
     private mapstateService: MapstateService ) { }
 
   // Gets the apparatus types
@@ -48,42 +50,19 @@ export class ApparatusInfoComponent implements OnInit, OnDestroy {
    */
   onApparatusTypeSelected( typeId: number ): void {
 
-    if ( typeId === 0 ) {
-      this.apparatusType = null;
-    } else {
+    this.apparatusType = null;
+    this.chartData = null;
+
+    if ( typeId > 0 ) {
       this.apparatusService.getApparatusType( typeId.toString() )
         .subscribe( apparatusType => {
 
           // Sets the appartus type object
           this.apparatusType = apparatusType;
+          this.chartData = this.chartDataService.getDeptUnitTypeChartData( apparatusType );
 
           // Updates the selected stations on the map
           this.mapstateService.selectStations( this.apparatusType.stationList );
-
-          // Creates the chart data object
-          const chartDataPoints = new Array<number>();
-          chartDataPoints.push( apparatusType.departMap[ 4 ] );
-          chartDataPoints.push( apparatusType.departMap[ 1 ] );
-          chartDataPoints.push( apparatusType.departMap[ 3 ] );
-          chartDataPoints.push( apparatusType.departMap[ 7 ] );
-          chartDataPoints.push( apparatusType.departMap[ 5 ] );
-          chartDataPoints.push( apparatusType.departMap[ 2 ] );
-          chartDataPoints.push( apparatusType.departMap[ 6 ] );
-
-          const chartDataset = new ChartData();
-          chartDataset.dataPoints = chartDataPoints;
-          chartDataset.label = apparatusType.typeName + ' Count';
-          chartDataset.dataLabels = [
-            'Fairfax County',
-            'Arlington County',
-            'Alexandria City',
-            'M.W. Airports Authority',
-            'Fort Belvoir',
-            'Fairfax City',
-            'Fort Myer'
-          ];
-
-          this.chartData = chartDataset;
         });
     }
   }
