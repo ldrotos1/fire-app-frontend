@@ -222,7 +222,7 @@ export class MapSymbolService {
   }
 
   /**
-   * Sets a single route as being highlighted. All other 
+   * Sets a single route as being highlighted. All other
    * routes are set as not highlighed
    */
   highlightSingleRoute( stationId: number, routes: Array<RouteMapSymbol> ) {
