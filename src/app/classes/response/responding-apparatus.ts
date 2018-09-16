@@ -13,4 +13,5 @@ export class RespondingApparatus {
   category: string;
   travelTime: number;
   travelDistance: number;
+  isHighlighted: boolean;
 }

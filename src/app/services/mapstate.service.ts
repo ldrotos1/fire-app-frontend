@@ -13,12 +13,16 @@ export class MapstateService {
   private hoverStationSym = new BehaviorSubject( 0 );
   private mapClickPosition = new Subject<L.LatLng>();
   private responseRoutes = new Subject<Array<ResponseRoute>>();
+  private rowHoverUnit = new BehaviorSubject( 0 );
+  private hoverRouteSym = new BehaviorSubject( 0 );
 
   watchSelectedStations = this.stationsSelection.asObservable();
   watchRowHoverStation = this.rowHoverStation.asObservable();
   watchHoverStationSym = this.hoverStationSym.asObservable();
   watchMapClickPosition = this.mapClickPosition.asObservable();
   watchResponseRoutes = this.responseRoutes.asObservable();
+  watchRowHoverUnit = this.rowHoverUnit.asObservable();
+  watchHoverRouteSym = this.hoverRouteSym.asObservable();
 
   constructor() { }
 
@@ -65,5 +69,23 @@ export class MapstateService {
   setResponseRoutes( routes: Array<ResponseRoute> ) {
 
     this.responseRoutes.next( routes );
+  }
+
+  /**
+   * Sends a message to subscribers with a updated row
+   * hover unit
+   */
+  setRowHoverUnit( stationId: number ): void {
+
+    this.rowHoverUnit.next( stationId );
+  }
+
+  /**
+   * Sends a message to subscribers with a updated map
+   * route symbol hover
+   */
+  setHoverRouteSym( stationId: number ): void {
+
+    this.hoverRouteSym.next( stationId );
   }
 }

@@ -66,6 +66,10 @@ export class MapComponent implements OnInit {
     this.mapStateService.watchRowHoverStation.subscribe(
       stationId => this.setRowHoverStation( stationId ) );
 
+    // Watches for changes in the unit row hover state
+    this.mapStateService.watchRowHoverUnit.subscribe(
+      stationId => this.setRowHoverRoute( stationId ) );
+
     // Watches for changes in the response routes
     this.mapStateService.watchResponseRoutes.subscribe(
       routes => this.updateRoutes( routes ) );
@@ -93,6 +97,9 @@ export class MapComponent implements OnInit {
     });
   }
 
+  /**
+   * Updates the response routes on the map
+   */
   updateRoutes( routes: Array<ResponseRoute> ) {
 
     if ( routes.length === 0 ) {
@@ -174,6 +181,16 @@ export class MapComponent implements OnInit {
   setRowHoverStation( stationId: number ): void {
     if ( this.stations ) {
       this.mapSymService.highlightSingleStation( stationId, this.stations );
+    }
+  }
+
+  /**
+   * Sets the route that should be symbolized as being
+   * hovered over
+   */
+  setRowHoverRoute( stationId: number ): void {
+    if ( this.routes ) {
+      this.mapSymService.highlightSingleRoute( stationId, this.routes );
     }
   }
 }

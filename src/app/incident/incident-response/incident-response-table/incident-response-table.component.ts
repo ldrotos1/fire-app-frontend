@@ -1,5 +1,6 @@
 import { RespondingApparatus } from '../../../classes/response/responding-apparatus';
-import { Component, OnInit, Input } from '@angular/core';
+import { MapstateService } from '../../../services/mapstate.service';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { Sort } from '@angular/material';
 
 @Component({
@@ -20,10 +21,17 @@ export class IncidentResponseTableComponent implements OnInit {
     'travelTime'
   ];
 
-  constructor() {}
+  constructor( private mapstateService: MapstateService, private zone: NgZone ) {}
 
   ngOnInit() {
+
+    // Sets up the table sorting
     this.sortedData = this.respondingUnits.slice();
+
+    // Watches for changes in the hovering route
+    this.mapstateService.watchHoverRouteSym.subscribe( stationId => {
+      this.updateTableRowSym( stationId );
+    });
   }
 
   /**
@@ -32,6 +40,41 @@ export class IncidentResponseTableComponent implements OnInit {
    */
   getUnitToolTip( unit: RespondingApparatus ): string {
     return unit.typeName + ' - ' + unit.category;
+  }
+
+  /**
+   * Event handler for when the cursor mouses over a unit
+   * table row
+   */
+  mouseEnter( unit: RespondingApparatus ): void {
+    this.mapstateService.setRowHoverUnit( unit.stationId );
+  }
+
+  /**
+   * Event handler for when the cursor mouses out of a
+   * unit table row
+   */
+  mouseLeave( unit: RespondingApparatus ): void {
+    this.mapstateService.setRowHoverUnit( 0 );
+  }
+
+  /**
+   * Sets the station table highlighted row to the
+   * row corresponding to the specified station
+   */
+  updateTableRowSym( stationId ): void {
+
+    this.zone.run(() => {
+
+      for ( const unit of this.sortedData ) {
+
+        if ( unit.stationId === stationId ) {
+          unit.isHighlighted = true;
+        } else {
+          unit.isHighlighted = false;
+        }
+      }
+    });
   }
 
   /**

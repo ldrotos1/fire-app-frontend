@@ -29,7 +29,9 @@
 		<tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
  		<tr mat-row class="data-row"
  			*matRowDef="let row; columns: displayedColumns;"
- 			[ngClass]="{ 'row-hover': row.isHighlighted === true }">
+ 			[ngClass]="{ 'row-hover': row.isHighlighted === true }"
+ 			(mouseenter)="mouseEnter(row)" 
+ 			(mouseleave)="mouseLeave(row)">
  		</tr>
 	</table>
 </div>

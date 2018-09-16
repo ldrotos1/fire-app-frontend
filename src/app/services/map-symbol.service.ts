@@ -62,6 +62,27 @@ export class MapSymbolService {
       weight: 6,
       opacity: 0.4
     });
+
+    // Sets up the mouse-over event handler
+    route.on( 'mouseover', () => {
+      route.setStyle({
+         color: '#ffcc00',
+         weight: 7,
+         opacity: 1
+      });
+      this.mapStateService.setHoverRouteSym( responseRoute.stationId );
+    });
+
+    // Sets up the mouse-out event handler
+    route.on( 'mouseout', () => {
+      route.setStyle({
+         color: '#FF0000',
+         weight: 6,
+         opacity: 0.4
+      });
+      this.mapStateService.setHoverRouteSym( 0 );
+    });
+
     routeSym.route = route;
 
     return routeSym;
@@ -203,7 +224,35 @@ export class MapSymbolService {
   }
 
   /**
-   * Sets a single station as be highlighted and sets its
+   * Sets a single route as being highlighted and sets its
+   * color to orange. All other routes are set as not highlighed
+   */
+  highlightSingleRoute( stationId: number, routes: Array<RouteMapSymbol> ) {
+
+    for ( const route of routes ) {
+
+      if ( route.stationId === stationId ) {
+
+        // Set symbol to highlighted state
+        route.route.setStyle({
+          color: '#ffcc00',
+          weight: 7,
+          opacity: 1
+        });
+      } else {
+
+        // Sets symbol to non-highlighted state
+        route.route.setStyle({
+          color: '#FF0000',
+          weight: 6,
+          opacity: 0.4
+        });
+      }
+    }
+  }
+
+  /**
+   * Sets a single station as being highlighted and sets its
    * symbol color to yellow. All other stations are set as
    * not highlighted
    */
