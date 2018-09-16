@@ -27,6 +27,14 @@ export class IncidentResponseTableComponent implements OnInit {
   }
 
   /**
+   * Returns a formated tooltip message based on the
+   * apparatus type for the specified apparatus
+   */
+  getUnitToolTip( unit: RespondingApparatus ): string {
+    return unit.typeName + ' - ' + unit.category;
+  }
+
+  /**
    * Sorts the table rows
    */
   sortData( sort: Sort ) {
