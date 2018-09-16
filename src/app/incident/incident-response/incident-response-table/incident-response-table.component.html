@@ -8,7 +8,7 @@
 		
 		<ng-container matColumnDef="typeName">
  			<th mat-header-cell mat-sort-header="typeName" *matHeaderCellDef>Unit Type</th>
-  			<td mat-cell *matCellDef="let unit" [matTooltip]="unit.category">{{ unit.typeName }}</td>
+  			<td mat-cell *matCellDef="let unit" [matTooltip]="unit.category">{{ unit.typeName | unitTypeName }}</td>
 		</ng-container>
 		
 		<ng-container matColumnDef="stationName">

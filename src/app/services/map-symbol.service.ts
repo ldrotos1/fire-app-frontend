@@ -1,3 +1,5 @@
+import { ResponseRoute } from '../classes/response/response-route';
+import { RouteMapSymbol } from '../classes/response/route-map-symbol';
 import { StationLite } from '../classes/station/StationLite';
 import { StationMapSymbol } from '../classes/station/stationmapsymbol';
 import { StationDialogComponent } from '../station-dialog/station-dialog.component';
@@ -11,7 +13,7 @@ import * as L from 'leaflet';
 @Injectable({
   providedIn: 'root'
 })
-export class StationSymbologyService {
+export class MapSymbolService {
 
   constructor(
       private mapStateService: MapstateService,
@@ -35,6 +37,34 @@ export class StationSymbologyService {
     });
 
     return incidentMarker;
+  }
+
+  /**
+   * Injests a response route object and creates and returns
+   * the corresponding map route polyline.
+   */
+  createRouteMapSym( responseRoute: ResponseRoute ): RouteMapSymbol {
+
+    const routeSym = new RouteMapSymbol(
+      responseRoute.stationId, responseRoute.apparatusIds );
+
+    // Creates the array of coordinates defining the polyline geometry
+    const latLng = [];
+    for ( const point of responseRoute.waypoints ) {
+
+      const coord = [ point.lat, point.lng ];
+      latLng.push( coord );
+    }
+
+    // Creates the polyline
+    const route = new L.Polyline( latLng, {
+      color: '#FF0000',
+      weight: 6,
+      opacity: 0.4
+    });
+    routeSym.route = route;
+
+    return routeSym;
   }
 
   /**

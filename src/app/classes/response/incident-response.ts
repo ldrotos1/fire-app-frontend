@@ -1,9 +1,9 @@
-import { ReponseRoute } from './reponse-route';
+import { ResponseRoute } from './response-route';
 import { RespondingApparatus } from './responding-apparatus';
 
 export class IncidentResponse {
   incidentTitle: string;
   respondingApparatus: Array<RespondingApparatus>;
-  reponseRoutes: Array<ReponseRoute>;
+  reponseRoutes: Array<ResponseRoute>;
 }
 

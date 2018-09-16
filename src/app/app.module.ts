@@ -54,6 +54,7 @@ import { IncidentResponseComponent } from './incident/incident-response/incident
 import { SecondsToMinutesPipe } from './pipes/seconds-to-minutes.pipe';
 import { StationDialogComponent } from './station-dialog/station-dialog.component';
 import { IncidentResponseTableComponent } from './incident/incident-response/incident-response-table/incident-response-table.component';
+import { UnitTypeNamePipe } from './pipes/unit-type-name.pipe';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { IncidentResponseTableComponent } from './incident/incident-response/inc
     SecondsToMinutesPipe,
     StationDialogComponent,
     IncidentResponseTableComponent,
+    UnitTypeNamePipe,
   ],
   imports: [
     BrowserModule,

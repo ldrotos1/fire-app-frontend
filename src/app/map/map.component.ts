@@ -1,3 +1,5 @@
+import { ResponseRoute } from '../classes/response/response-route';
+import { RouteMapSymbol } from '../classes/response/route-map-symbol';
 import { NgModule } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
@@ -6,7 +8,7 @@ import { StationsService } from '../services/stations.service';
 import { StationMapSymbol } from '../classes/station/StationMapSymbol';
 import { CrosshairViewService } from '../services/crosshair-view.service';
 import { MapstateService } from '../services/mapstate.service';
-import { StationSymbologyService } from '../services/station-symbology.service';
+import { MapSymbolService } from '../services/map-symbol.service';
 import * as L from 'leaflet';
 
 @NgModule({
@@ -40,41 +42,37 @@ export class MapComponent implements OnInit {
   private mapLayers = [];
   private stations: StationMapSymbol[];
   private incidentMarker: L.Marker;
+  private routes: RouteMapSymbol[];
 
   constructor(
     private stationsService: StationsService,
     private mapStateService: MapstateService,
-    private stationSymService: StationSymbologyService,
+    private mapSymService: MapSymbolService,
     private crosshairService: CrosshairViewService,
     private router: Router ) {
 
       this.stations = new Array<StationMapSymbol>();
+      this.routes = new Array<RouteMapSymbol>();
   }
 
   ngOnInit() {
     this.getMapStations();
 
     // Watches for changes in the station selection set
-    this.mapStateService.watchSelectedStations.subscribe( stationIds => {
-      this.setSelectedStations( stationIds );
-    });
+    this.mapStateService.watchSelectedStations.subscribe(
+      stationIds => this.setSelectedStations( stationIds ) );
 
     // Watches for changes in the station row hover state
-    this.mapStateService.watchRowHoverStation.subscribe( stationId => {
-      this.setRowHoverStation( stationId );
-    });
+    this.mapStateService.watchRowHoverStation.subscribe(
+      stationId => this.setRowHoverStation( stationId ) );
+
+    // Watches for changes in the response routes
+    this.mapStateService.watchResponseRoutes.subscribe(
+      routes => this.updateRoutes( routes ) );
 
     // Watches for changes in the crosshair cursor state
     this.crosshairService.watchCrosshairState.subscribe(
-      state => { this.isCrosshairActive = state; } );
-
-    // Clears the incident loaction from the map when the route changes
-    this.router.events.subscribe( event => {
-
-      if ( event instanceof NavigationStart ) {
-          this.clearIncidentLocation();
-      }
-    });
+      state => this.isCrosshairActive = state );
   }
 
   /**
@@ -86,13 +84,34 @@ export class MapComponent implements OnInit {
       for ( const station of stations ) {
 
         // Creates the station marker
-        const mapStation = this.stationSymService.createStationMapSym( station );
+        const mapStation = this.mapSymService.createStationMapSym( station );
 
         // Adds the station marker to the map
         this.stations.push( mapStation );
         this.mapLayers.push( mapStation.mapMarker );
       }
     });
+  }
+
+  updateRoutes( routes: Array<ResponseRoute> ) {
+
+    if ( routes.length === 0 ) {
+
+      // Routes are empty. Clear previous incident
+      this.clearIncidentLocation();
+      this.clearRoutes();
+    } else {
+
+      // Updates routes with new set
+      this.clearRoutes();
+      this.routes = [];
+
+      for ( const route of routes ) {
+        const routeSym = this.mapSymService.createRouteMapSym( route );
+        this.routes.push( routeSym );
+        this.mapLayers.push( routeSym.route );
+      }
+    }
   }
 
   /**
@@ -105,7 +124,7 @@ export class MapComponent implements OnInit {
     if ( this.isCrosshairActive === true ) {
 
       this.clearIncidentLocation();
-      this.incidentMarker = this.stationSymService.createIncidentMarker( event.latlng );
+      this.incidentMarker = this.mapSymService.createIncidentMarker( event.latlng );
       this.mapLayers.push( this.incidentMarker );
     }
 
@@ -123,6 +142,15 @@ export class MapComponent implements OnInit {
   }
 
   /**
+   * Clears the routes from the map
+   */
+  clearRoutes(): void {
+    for ( const route of this.routes ) {
+      route.route.remove();
+    }
+  }
+
+  /**
    * Selects the stations on the map that whose station
    * IDs are in the collection of IDs
    */
@@ -130,11 +158,11 @@ export class MapComponent implements OnInit {
     if ( this.stations ) {
 
       if ( stationIds.length === 0 ) {
-        this.stationSymService.clearStationSelections( this.stations );
+        this.mapSymService.clearStationSelections( this.stations );
       } else if ( this.router.url === '/stations' ) {
-        this.stationSymService.singleStationSelction( stationIds[0], this.stations );
+        this.mapSymService.singleStationSelction( stationIds[0], this.stations );
       } else {
-        this.stationSymService.groupStationSelection( stationIds, this.stations );
+        this.mapSymService.groupStationSelection( stationIds, this.stations );
       }
     }
   }
@@ -145,7 +173,7 @@ export class MapComponent implements OnInit {
    */
   setRowHoverStation( stationId: number ): void {
     if ( this.stations ) {
-      this.stationSymService.highlightSingleStation( stationId, this.stations );
+      this.mapSymService.highlightSingleStation( stationId, this.stations );
     }
   }
 }
