@@ -59,14 +59,13 @@ export class MapSymbolService {
     // Creates the polyline
     const route = new L.Polyline( latLng, {
       color: '#FF0000',
-      weight: 6,
-      opacity: 0.4
+      weight: 5,
+      opacity: 0.3
     });
 
     // Sets up the mouse-over event handler
     route.on( 'mouseover', () => {
       route.setStyle({
-         color: '#ffcc00',
          weight: 7,
          opacity: 1
       });
@@ -76,9 +75,8 @@ export class MapSymbolService {
     // Sets up the mouse-out event handler
     route.on( 'mouseout', () => {
       route.setStyle({
-         color: '#FF0000',
-         weight: 6,
-         opacity: 0.4
+         weight: 5,
+         opacity: 0.3
       });
       this.mapStateService.setHoverRouteSym( 0 );
     });
@@ -224,8 +222,8 @@ export class MapSymbolService {
   }
 
   /**
-   * Sets a single route as being highlighted and sets its
-   * color to orange. All other routes are set as not highlighed
+   * Sets a single route as being highlighted. All other 
+   * routes are set as not highlighed
    */
   highlightSingleRoute( stationId: number, routes: Array<RouteMapSymbol> ) {
 
@@ -235,7 +233,6 @@ export class MapSymbolService {
 
         // Set symbol to highlighted state
         route.route.setStyle({
-          color: '#ffcc00',
           weight: 7,
           opacity: 1
         });
@@ -243,9 +240,8 @@ export class MapSymbolService {
 
         // Sets symbol to non-highlighted state
         route.route.setStyle({
-          color: '#FF0000',
-          weight: 6,
-          opacity: 0.4
+          weight: 5,
+          opacity: 0.3
         });
       }
     }
