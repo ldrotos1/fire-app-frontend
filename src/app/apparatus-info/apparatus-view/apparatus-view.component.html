@@ -4,8 +4,5 @@
 	<div>
 		<p>{{ apparatusType.description }}</p>
 	</div>
-	<app-apparatus-dept-chart 
-		*ngIf="chartData" 
-		[chartData]="chartData">
-	</app-apparatus-dept-chart> 
+	<app-bar-chart *ngIf="chartData" [chartData]="chartData"></app-bar-chart> 
 </div>

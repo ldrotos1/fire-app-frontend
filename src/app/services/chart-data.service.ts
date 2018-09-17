@@ -1,6 +1,8 @@
 import { ApparatusType } from '../classes/apparatus/apparatustype';
 import { ChartData } from '../classes/charts/chartdata';
+import { UnitTypeCountList } from '../classes/charts/unit-type-count-list';
 import { Department } from '../classes/department/department';
+import { RespondingApparatus } from '../classes/response/responding-apparatus';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -32,6 +34,37 @@ export class ChartDataService {
     this.unitDeptLabels.push( 'Fort Belvoir' );
     this.unitDeptLabels.push( 'Fairfax City' );
     this.unitDeptLabels.push( 'Fort Myer' );
+  }
+
+  /**
+   * Returns the chart data for the responding apparatus
+   * stacked bar chart
+   */
+  getResponseUnitChartData( units: Array<RespondingApparatus> ): ChartData {
+
+    const unitCatLables = [];
+    const chartDataPoints = [];
+    const unitTypeCountList = new UnitTypeCountList();
+
+    // Creates the unit type count collection
+    for ( const unit of units ) {
+      unitTypeCountList.addUnit( unit );
+    }
+
+    // Creates the chart data point and labels
+    const countList = unitTypeCountList.getSortedList();
+    for ( const item of countList ) {
+      unitCatLables.push( item.unitType );
+      chartDataPoints.push( item.unitCount );
+    }
+
+    // Creates the chart data object
+    const chartData = new ChartData();
+    chartData.dataLabels = unitCatLables;
+    chartData.label = 'Apparatus Count';
+    chartData.dataPoints = chartDataPoints;
+
+    return chartData;
   }
 
   /**

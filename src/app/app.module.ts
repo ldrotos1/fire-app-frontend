@@ -37,13 +37,11 @@ import { AppRoutingModule } from './/app-routing.module';
 import { SubHeaderComponent } from './sub-header/sub-header.component';
 import { DepartmentSelectorComponent } from './department-info/department-selector/department-selector.component';
 import { DepartmentViewComponent } from './department-info/department-view/department-view.component';
-import { UnitTypeChartComponent } from './department-info/department-view/unit-type-chart/unit-type-chart.component';
 import { StationListComponent } from './department-info/department-view/station-list/station-list.component';
 import { StationAutocompleteComponent } from './station-info/station-autocomplete/station-autocomplete.component';
 import { StationViewComponent } from './station-info/station-view/station-view.component';
 import { ApparatusAutocompleteComponent } from './apparatus-info/apparatus-autocomplete/apparatus-autocomplete.component';
 import { ApparatusViewComponent } from './apparatus-info/apparatus-view/apparatus-view.component';
-import { ApparatusDeptChartComponent } from './apparatus-info/apparatus-view/apparatus-dept-chart/apparatus-dept-chart.component';
 import { IncidentBuilderComponent } from './incident/incident-builder/incident-builder.component';
 import { IncidentTypeSelectorComponent } from './incident/incident-builder/incident-type-selector/incident-type-selector.component';
 import { StructureFireFormComponent } from './incident/incident-builder/structure-fire-form/structure-fire-form.component';
@@ -55,6 +53,7 @@ import { SecondsToMinutesPipe } from './pipes/seconds-to-minutes.pipe';
 import { StationDialogComponent } from './station-dialog/station-dialog.component';
 import { IncidentResponseTableComponent } from './incident/incident-response/incident-response-table/incident-response-table.component';
 import { UnitTypeNamePipe } from './pipes/unit-type-name.pipe';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -69,13 +68,11 @@ import { UnitTypeNamePipe } from './pipes/unit-type-name.pipe';
     SubHeaderComponent,
     DepartmentSelectorComponent,
     DepartmentViewComponent,
-    UnitTypeChartComponent,
     StationListComponent,
     StationAutocompleteComponent,
     StationViewComponent,
     ApparatusAutocompleteComponent,
     ApparatusViewComponent,
-    ApparatusDeptChartComponent,
     IncidentBuilderComponent,
     IncidentTypeSelectorComponent,
     StructureFireFormComponent,
@@ -87,6 +84,7 @@ import { UnitTypeNamePipe } from './pipes/unit-type-name.pipe';
     StationDialogComponent,
     IncidentResponseTableComponent,
     UnitTypeNamePipe,
+    BarChartComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,6 @@
+import { ChartData } from '../../classes/charts/chartdata';
 import { IncidentResponse } from '../../classes/response/incident-response';
+import { ChartDataService } from '../../services/chart-data.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -13,8 +15,9 @@ export class IncidentResponseComponent implements OnInit {
 
   private fastestArrivalTime: number;
   private slowestArrivalTime: number;
+  private chartData: ChartData;
 
-  constructor() {
+  constructor( private chartDataService: ChartDataService ) {
   }
 
   ngOnInit() {
@@ -27,6 +30,10 @@ export class IncidentResponseComponent implements OnInit {
 
     this.fastestArrivalTime =
       this.incidentResponse.respondingApparatus[0].travelTime;
+
+    // Gets the bar chart data
+    this.chartData = this.chartDataService.getResponseUnitChartData(
+      this.incidentResponse.respondingApparatus );
   }
 
   /**

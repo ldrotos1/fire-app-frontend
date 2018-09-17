@@ -40,4 +40,7 @@
 			[respondingUnits]="incidentResponse.respondingApparatus">
 		</app-incident-response-table>
 	</section>
+	<section>
+		<app-bar-chart *ngIf="chartData" [chartData]="chartData"></app-bar-chart>
+	</section>
 </mat-card>

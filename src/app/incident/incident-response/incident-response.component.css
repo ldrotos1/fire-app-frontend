@@ -40,3 +40,7 @@ h2 {
 	justify-content: center;
 }
 
+section:last-child {
+	margin-top: 25px;
+}
+

@@ -1,16 +1,16 @@
-import { ChartData } from '../../../classes/charts/chartdata';
+import { ChartData } from '../../classes/charts/chartdata';
 import { Component, OnInit, Input } from '@angular/core';
-import { ChartsModule } from 'ng2-charts';
 
 @Component({
-  selector: 'app-unit-type-chart',
-  templateUrl: './unit-type-chart.component.html',
-  styleUrls: ['./unit-type-chart.component.css']
+  selector: 'app-bar-chart',
+  templateUrl: './bar-chart.component.html',
+  styleUrls: ['./bar-chart.component.css']
 })
-export class UnitTypeChartComponent implements OnInit {
+export class BarChartComponent implements OnInit {
 
   @Input() set chartData( data: ChartData ) {
     this.chartDataPoints[0].data = data.dataPoints;
+    this.chartDataPoints[0].label = data.label;
     this.chartLabels = data.dataLabels;
   }
 
@@ -18,7 +18,7 @@ export class UnitTypeChartComponent implements OnInit {
   private chartLabels = [];
   private chartDataPoints: Array<any> = [{
       data: [],
-      label: 'Apparatus Count'
+      label: ''
   }];
   private chartOptions: any = {
     responsive: true,
@@ -27,10 +27,9 @@ export class UnitTypeChartComponent implements OnInit {
     }
   };
   public chartLegend = false;
-
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
   }
+
 }
