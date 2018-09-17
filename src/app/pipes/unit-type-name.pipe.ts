@@ -19,6 +19,8 @@ export class UnitTypeNamePipe implements PipeTransform {
         return 'Med Amb Bus';
      case 'Foam Engine':
         return 'Foam Eng';
+     case 'Inflatable Boat':
+        return 'Infl Boat';
      default:
         return typeName;
     }
