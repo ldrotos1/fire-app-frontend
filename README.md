@@ -1,3 +1,7 @@
+# Overview
+
+The NOVA Fire and Rescue dashboard is a simulated operations dashboard for the Northern Virginia fire departments. The application provides the capability to view information about fire departments, fire stations and types of fire apparatus within Northern Virginia region. Users can also select various types of emergency incidents and simulate the response to those incidents.
+
 # Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.5.
