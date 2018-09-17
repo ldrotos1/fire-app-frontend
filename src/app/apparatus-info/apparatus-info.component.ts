@@ -50,8 +50,10 @@ export class ApparatusInfoComponent implements OnInit, OnDestroy {
    */
   onApparatusTypeSelected( typeId: number ): void {
 
+    // Clears the current selection
     this.apparatusType = null;
     this.chartData = null;
+    this.mapstateService.selectStations( [] );
 
     if ( typeId > 0 ) {
       this.apparatusService.getApparatusType( typeId.toString() )
