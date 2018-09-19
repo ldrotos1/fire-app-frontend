@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { StationLite } from '../classes/station/StationLite';
 import { Station } from '../classes/station/Station';
 import { StationMapSymbol } from '../classes/station/stationmapsymbol';
+import { WebPropertiesService } from './web-properties.service';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable({
@@ -11,18 +12,16 @@ import { HttpParams } from '@angular/common/http';
 })
 export class StationsService {
 
-  private stationsUrl = 'http://localhost:8080/services/rest/information/station/all';
-  private stationUrl = 'http://localhost:8080/services/rest/information/station/byid';
-
-  constructor( private http: HttpClient ) {
-  }
+  constructor(
+    private http: HttpClient,
+    private webProps: WebPropertiesService ) {}
 
   /**
    * Gets an array of all fire stations.
    */
   getStations(): Observable<StationLite[]> {
 
-    return this.http.get<StationLite[]>( this.stationsUrl );
+    return this.http.get<StationLite[]>( this.webProps.getStationsUrl() );
   }
 
   /**
@@ -30,7 +29,7 @@ export class StationsService {
    */
   getMapStations(): Observable<StationMapSymbol[]> {
 
-    return this.http.get<StationMapSymbol[]>( this.stationsUrl );
+    return this.http.get<StationMapSymbol[]>( this.webProps.getStationsUrl() );
   }
 
   /**
@@ -39,6 +38,6 @@ export class StationsService {
   getStation( stationId: string ): Observable<Station> {
 
     const options = { params: new HttpParams().set( 'id', stationId ) };
-    return this.http.get<Station>( this.stationUrl, options );
+    return this.http.get<Station>( this.webProps.getStationUrl(), options );
   }
 }

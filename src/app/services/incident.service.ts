@@ -6,6 +6,7 @@ import { StructureFireIncident } from '../classes/incident/structure-fire-incide
 import { VehicleAccidentIncident } from '../classes/incident/vehicle-accident-incident';
 import { WaterRescueIncident } from '../classes/incident/water-rescue-incident';
 import { IncidentResponse } from '../classes/response/incident-response';
+import { WebPropertiesService } from './web-properties.service';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -17,17 +18,11 @@ import { catchError } from 'rxjs/operators';
 })
 export class IncidentService {
 
-  private host = 'http://localhost:8080';
-  private urlStructureFire = '/services/rest/simulator/fire/incident';
-  private urlMedEmergency = '/services/rest/simulator/ems/incident';
-  private urlVehicleAccident = '/services/rest/simulator/vehicleaccident/incident';
-  private urlMassCas = '/services/rest/simulator/masscasualty/incident';
-  private urlWaterRescue = '/services/rest/simulator/waterrescue/incident';
-  private urlFuelSpill = '/services/rest/simulator/fuelspill/incident';
-
   private httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'}) };
 
-  constructor( private http: HttpClient ) { }
+  constructor(
+    private http: HttpClient,
+    private webProps: WebPropertiesService ) { }
 
   /**
    * Calls the simulation REST service to simulate the
@@ -35,7 +30,7 @@ export class IncidentService {
    */
   simulateIncidentResponse( incident: IncidentType ): Observable<IncidentResponse> {
 
-    const url = this.host + this._getUrl( incident );
+    const url = this._getUrl( incident );
     return this.http.post<IncidentResponse>( url, incident, this.httpOptions );
   }
 
@@ -47,27 +42,27 @@ export class IncidentService {
 
     if ( incident instanceof StructureFireIncident ) {
 
-      return this.urlStructureFire;
+      return this.webProps.getStructureFireUrl();
 
     } else if ( incident instanceof MedEmergencyIncident ) {
 
-      return this.urlMedEmergency;
+      return this.webProps.getMedEmergencyUrl();
 
     } else if ( incident instanceof VehicleAccidentIncident ) {
 
-      return this.urlVehicleAccident;
+      return this.webProps.getVehicleAccidentUrl();
 
     } else if ( incident instanceof MassCasualtyIncident ) {
 
-      return this.urlMassCas;
+      return this.webProps.getMassCasUrl();
 
     } else if ( incident instanceof FuelSpillIncident ) {
 
-      return this.urlFuelSpill;
+      return this.webProps.getFuelSpillUrl();
 
     } else if ( incident instanceof WaterRescueIncident ) {
 
-      return this.urlWaterRescue;
+      return this.webProps.getWaterRescueUrl();
 
     } else {
 
