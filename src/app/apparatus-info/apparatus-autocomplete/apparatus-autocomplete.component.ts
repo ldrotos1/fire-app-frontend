@@ -15,8 +15,8 @@ export class ApparatusAutocompleteComponent implements OnInit {
   @Input() apparatusTypes: ApparatusTypeLite[];
   @Output() apparatusTypeSelected = new EventEmitter<number>();
 
-  private typeSelector: FormControl;
-  private filteredTypes: Observable<ApparatusTypeLite[]>;
+  typeSelector: FormControl;
+  filteredTypes: Observable<ApparatusTypeLite[]>;
 
   constructor() { }
 

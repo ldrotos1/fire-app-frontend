@@ -13,11 +13,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class ApparatusInfoComponent implements OnInit, OnDestroy {
 
-  private title = 'Apparatus Type Information';
-  private icon = 'local_taxi';
-  private apparatusType: ApparatusType;
-  private apparatusTypes: ApparatusTypeLite[];
-  private chartData: ChartData;
+  title = 'Apparatus Type Information';
+  icon = 'local_taxi';
+  apparatusType: ApparatusType;
+  apparatusTypes: ApparatusTypeLite[];
+  chartData: ChartData;
 
   constructor(
     private apparatusService: ApparatusService,

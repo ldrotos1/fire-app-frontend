@@ -10,7 +10,7 @@ export class StationViewComponent implements OnInit {
 
   @Input() station: Station;
 
-  private displayedColumns: string[] = [ 'unitDesignator', 'typeName', 'category' ];
+  displayedColumns: string[] = [ 'unitDesignator', 'typeName', 'category' ];
 
   constructor() { }
 

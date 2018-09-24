@@ -12,7 +12,7 @@ export class ApparatusViewComponent implements OnInit {
   @Input() apparatusType: ApparatusType;
   @Input() chartData: ChartData;
 
-  private imageBaseUrl = 'http://novafireapp.s3.amazonaws.com/images/';
+  imageBaseUrl = 'http://novafireapp.s3.amazonaws.com/images/';
 
   constructor() { }
 

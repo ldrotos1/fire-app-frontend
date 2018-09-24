@@ -11,10 +11,10 @@ import { MatSnackBar } from '@angular/material';
 })
 export class IncidentComponent implements OnInit, OnDestroy {
 
-  private title = 'Incident Simulator';
-  private icon = 'notifications_active';
-  private processing = false;
-  private response: IncidentResponse;
+  title = 'Incident Simulator';
+  icon = 'notifications_active';
+  processing = false;
+  response: IncidentResponse;
 
   constructor(
     private incidentService: IncidentService,

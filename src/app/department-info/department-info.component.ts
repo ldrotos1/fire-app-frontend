@@ -12,10 +12,10 @@ import { ChartDataService } from '../services/chart-data.service';
 })
 export class DepartmentInfoComponent implements OnInit, OnDestroy {
 
-  private title = 'Fire Department Information';
-  private icon = 'location_city';
-  private department: Department;
-  private chartData: ChartData;
+  title = 'Fire Department Information';
+  icon = 'location_city';
+  department: Department;
+  chartData: ChartData;
 
   constructor(
     private departmentService: DepartmentService,

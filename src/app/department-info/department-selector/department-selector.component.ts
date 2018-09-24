@@ -12,7 +12,7 @@ export class DepartmentSelectorComponent implements OnInit {
 
   @Output() deptSelected = new EventEmitter<DepartmentLite>();
 
-  private departments: DepartmentLite[];
+  departments: DepartmentLite[];
 
   constructor( private departmentService: DepartmentService ) { }
 

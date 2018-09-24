@@ -16,7 +16,7 @@ export class IncidentTypeSelectorComponent implements OnInit {
 
   @Output() incidentSelected = new EventEmitter<boolean>();
 
-  private incidentTypes: Array<string>;
+  incidentTypes: Array<string>;
 
   constructor() {
 

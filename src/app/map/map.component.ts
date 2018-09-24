@@ -24,12 +24,15 @@ import * as L from 'leaflet';
 })
 export class MapComponent implements OnInit {
 
+  private stations: StationMapSymbol[];
+  private incidentMarker: L.Marker;
+  private routes: RouteMapSymbol[];
+
   private baseMapUrl = 'https://api.mapbox.com/styles/v1/ldrotos/cjk7ejowm5htm2rl579r0etey/tiles/256/{z}/{x}/{y}';
   private baseMapToken = 'pk.eyJ1IjoibGRyb3RvcyIsImEiOiJwQXgwZ2ZVIn0.pPrIMXZdwniJcp79DNpg9g';
   private baseMapAccess = this.baseMapUrl + '?access_token=' + this.baseMapToken;
-  private isCrosshairActive = false;
 
-  private mapOptions = {
+  mapOptions = {
     layers: [ L.tileLayer( this.baseMapAccess, {})],
     zoom: 10,
     minZoom: 9,
@@ -39,10 +42,8 @@ export class MapComponent implements OnInit {
     bounceAtZoomLimits: false
   };
 
-  private mapLayers = [];
-  private stations: StationMapSymbol[];
-  private incidentMarker: L.Marker;
-  private routes: RouteMapSymbol[];
+  mapLayers = [];
+  isCrosshairActive = false;
 
   constructor(
     private stationsService: StationsService,

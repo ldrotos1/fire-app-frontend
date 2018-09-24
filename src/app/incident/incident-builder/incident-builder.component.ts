@@ -13,8 +13,8 @@ export class IncidentBuilderComponent implements OnInit {
 
   @Output() simulate = new EventEmitter<IncidentType>();
 
-  private incidentType: string;
-  private incidentForm: IncidentForm;
+  incidentType: string;
+  incidentForm: IncidentForm;
 
   constructor(
     private mapStateService: MapstateService,

@@ -12,8 +12,8 @@ export class IncidentResponseTableComponent implements OnInit {
 
   @Input() respondingUnits: Array<RespondingApparatus>;
 
-  private sortedData: RespondingApparatus[];
-  private displayedColumns: string[] = [
+  sortedData: RespondingApparatus[];
+  displayedColumns: string[] = [
     'unitDesignator',
     'typeName',
     'stationName',

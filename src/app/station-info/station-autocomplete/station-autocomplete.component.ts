@@ -16,9 +16,9 @@ export class StationAutocompleteComponent implements OnInit {
   @Input() stations: StationLite[];
   @Output() stationSelected = new EventEmitter<number>();
 
-  private selectedStationId = 0;
-  private stationSelector: FormControl;
-  private filteredStations: Observable<StationLite[]>;
+  selectedStationId = 0;
+  stationSelector: FormControl;
+  filteredStations: Observable<StationLite[]>;
 
   constructor( private mapStateService: MapstateService ) { }
 

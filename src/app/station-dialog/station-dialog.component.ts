@@ -11,7 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class StationDialogComponent implements OnInit {
 
-  private station: Station;
+  station: Station;
 
   constructor(
     private stationsService: StationsService,

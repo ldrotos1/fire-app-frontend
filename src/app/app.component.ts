@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material';
 })
 export class AppComponent implements OnInit {
 
-  private isCrosshairActive = false;
+  isCrosshairActive = false;
 
   constructor( private crosshairService: CrosshairViewService ) {}
 

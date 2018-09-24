@@ -14,19 +14,20 @@ export class BarChartComponent implements OnInit {
     this.chartLabels = data.dataLabels;
   }
 
-  private chartType = 'horizontalBar';
-  private chartLabels = [];
-  private chartDataPoints: Array<any> = [{
+  chartType = 'horizontalBar';
+  chartLabels = [];
+  chartDataPoints: Array<any> = [{
       data: [],
       label: ''
   }];
-  private chartOptions: any = {
+  chartOptions: any = {
     responsive: true,
     scales: {
       xAxes: [{ ticks: { beginAtZero: true } }]
     }
   };
-  public chartLegend = false;
+  chartLegend = false;
+
   constructor() { }
 
   ngOnInit() {

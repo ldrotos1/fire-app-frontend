@@ -13,9 +13,9 @@ export class IncidentResponseComponent implements OnInit {
   @Input() incidentResponse: IncidentResponse;
   @Output() clearResponse = new EventEmitter<boolean>();
 
-  private fastestArrivalTime: number;
-  private slowestArrivalTime: number;
-  private chartData: ChartData;
+  fastestArrivalTime: number;
+  slowestArrivalTime: number;
+  chartData: ChartData;
 
   constructor( private chartDataService: ChartDataService ) {
   }

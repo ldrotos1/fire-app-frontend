@@ -14,8 +14,8 @@ export class StationListComponent implements OnInit {
     this.sortedStations = stations.slice();
   }
 
-  private sortedStations: Array<DepartmentStation>;
-  private displayedColumns: string[] = [ 'stationDesignator', 'stationName', 'unitCount' ];
+  sortedStations: Array<DepartmentStation>;
+  displayedColumns: string[] = [ 'stationDesignator', 'stationName', 'unitCount' ];
 
   constructor( private mapstateService: MapstateService,  private zone: NgZone ) { }
 

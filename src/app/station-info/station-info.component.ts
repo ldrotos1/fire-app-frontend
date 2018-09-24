@@ -13,10 +13,10 @@ import { Observable } from 'rxjs';
 })
 export class StationInfoComponent implements OnInit, OnDestroy {
 
-  private title = 'Fire Station Information';
-  private icon = 'store_mall_directory';
-  private station: Station;
-  private stations: StationLite[];
+  title = 'Fire Station Information';
+  icon = 'store_mall_directory';
+  station: Station;
+  stations: StationLite[];
 
   constructor(
     private stationsService: StationsService,

@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserGuideComponent implements OnInit {
 
-  private title = 'User Guide';
-  private icon = 'info';
+  title = 'User Guide';
+  icon = 'info';
 
   constructor() { }
 
